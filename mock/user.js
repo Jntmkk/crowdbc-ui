@@ -1,3 +1,4 @@
+import { config } from '@vue/test-utils'
 
 const tokens = {
   admin: {
@@ -13,13 +14,15 @@ const users = {
     roles: ['admin'],
     introduction: 'I am a super administrator',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    name: 'Super Admin',
+    reputation: 6
   },
   'editor-token': {
     roles: ['editor'],
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    name: 'Normal Editor',
+    reputation: 6
   }
 }
 
@@ -43,6 +46,24 @@ export default [
       return {
         code: 20000,
         data: token
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/user/register',
+    type: 'post',
+    response: config => {
+      const { username } = config.body
+      const token = tokens[username]
+      if (token) {
+        return {
+          code: 401,
+          msg: 'already login'
+        }
+        return {
+          code: 200,
+          msg: 'success'
+        }
       }
     }
   },

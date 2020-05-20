@@ -7,3 +7,17 @@ export function getList(params) {
     params
   })
 }
+export function getTaskList(params) {
+  return request({
+    url: '/vue-admin-template/table/taskTable',
+    method: 'get',
+    params: params
+  })
+}
+// export function getTaskList(params) {
+//   return request({
+//     url: '',
+//     method: 'get',
+//     params: params
+//   })
+// }

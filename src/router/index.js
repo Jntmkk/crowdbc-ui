@@ -32,6 +32,11 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -73,6 +78,53 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/worker',
+    component: Layout,
+    redirect: '/worker/taskTable',
+    name: 'Worker',
+    meta: { title: 'I am worker', icon: 'worker' },
+    children: [
+      {
+        path: 'taskTable',
+        name: 'TaskTable',
+        component: () => import('@/views/worker/TaskTable'),
+        meta: { title: 'Task', icon: 'table' }
+      }, {
+        path: 'complexTable',
+        name: 'ComplexTable',
+        component: () => import('@/views/worker/ComplexTable'),
+        meta: { title: 'ComplexTable', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/worker/index'),
+        meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/requester',
+    component: Layout,
+    redirect: '/requester/table',
+    name: 'Requester',
+    meta: { title: 'I am requester', icon: 'request' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/requester/index'),
+        meta: { title: '发布任务', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/requester/index'),
+        meta: { title: '已发布任务', icon: 'tree' }
       }
     ]
   },
