@@ -100,10 +100,10 @@ export const constantRoutes = [
         meta: { title: 'ComplexTable', icon: 'table' }
       },
       {
-        path:'doWork',
-        name:'doWork',
-        component:()=> import('@/views/worker/WorkingPage'),
-        meta:{title:'DoWork',icon:'table'}
+        path: 'doWork',
+        name: 'doWork',
+        component: () => import('@/views/worker/WorkingPage'),
+        meta: { title: 'DoWork', icon: 'table' }
       },
       {
         path: 'tree',
@@ -130,7 +130,7 @@ export const constantRoutes = [
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/requester/index'),
-        meta: { title: '已发布任务', icon: 'tree'}
+        meta: { title: '已发布任务', icon: 'tree' }
       },
       {
         path: 'assessment',
@@ -139,8 +139,18 @@ export const constantRoutes = [
         meta: { title: '评估', icon: 'tree' }
       }
     ]
+  }, {
+    path: '/setting',
+    component: Layout,
+    // redirect: '/setting',
+    name: 'setting',
+    children: [{
+      name: 'setting',
+      path: 'setting',
+      meta: { title: '设置', icon: 'settings' },
+      component: () => import('@/views/setting/setting')
+    }]
   },
-
   {
     path: '/form',
     component: Layout,
