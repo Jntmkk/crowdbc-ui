@@ -1,16 +1,26 @@
 <template>
   <div class="container">
-    <p style="text-align: center">发布任务</p>
-    <el-form  ref="ruleForm" :model="form" label-width="80px" :rules="rules">
+    <p class="content-title">发布任务</p>
+    <el-form ref="ruleForm" :model="form" label-width="80px" :rules="rules">
       <el-form-item label="任务名称" prop="name">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.name" class="half-container"></el-input>
       </el-form-item>
-      <el-form-item  label="任务类别" prop="category">
-        <el-select v-model="form.category" placeholder="请选择任务类别">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
+      <el-row>
+        <el-col :span="4">
+          <el-form-item label="任务类别" prop="category">
+            <el-select v-model="form.category" placeholder="请选择任务类别">
+              <el-option label="物联网测试" value="iotTest"></el-option>
+              <el-option label="提交报告" value="submitRep"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8" v-if="form.category==='iotTest'" offset="1">
+          <el-form-item label="接口" prop="interface">
+            <el-input v-model="form.interface"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
       <el-form-item label="截止日期" prop="date1">
         <el-col :span="11">
           <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
@@ -18,6 +28,15 @@
         <el-col class="line" :span="2">-</el-col>
         <el-col :span="11">
           <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="接收时限" prop="date3">
+        <el-col :span="11">
+          <el-date-picker type="date" placeholder="选择日期" v-model="form.date3" style="width: 100%;"></el-date-picker>
+        </el-col>
+        <el-col class="line" :span="2">-</el-col>
+        <el-col :span="11">
+          <el-time-picker placeholder="选择时间" v-model="form.date4" style="width: 100%;"></el-time-picker>
         </el-col>
       </el-form-item>
       <el-form-item label="发布时机" prop="delivery">
@@ -32,18 +51,32 @@
           </el-date-picker>
         </div>
       </el-form-item>
-      <el-form-item  label="押金" prop="deposit">
-        <el-input v-model.number="form.deposit"/>
-      </el-form-item>
-      <el-form-item label="奖励" prop="reward">
-        <el-input v-model.number="form.reward"/>
-      </el-form-item>
-      <el-form-item label="接收数量" prop="num">
-        <el-input v-model.number="form.num"/>
-      </el-form-item>
-      <el-form-item label="最低信誉" prop="rep">
-        <el-input v-model.number="form.rep"/>
-      </el-form-item>
+      <el-row type="flex" class="row-bg">
+        <el-col span="12">
+          <el-form-item label="押金" prop="deposit" class="half-container">
+            <el-input v-model.number="form.deposit"/>
+          </el-form-item>
+        </el-col>
+        <el-col span="12">
+          <el-form-item label="接收数量" prop="num" class="half-container">
+            <el-input v-model.number="form.num"/>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col span="12">
+          <el-form-item label="奖励" prop="reward" class="half-container">
+            <el-input v-model.number="form.reward"/>
+          </el-form-item>
+        </el-col>
+        <el-col span="12">
+          <el-form-item label="最低信誉" prop="rep" class="half-container">
+            <el-input v-model.number="form.rep"/>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+
       <!--      <el-form-item label="活动性质">-->
       <!--        <el-checkbox-group v-model="form.type">-->
       <!--          <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>-->
@@ -66,15 +99,34 @@
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialog.dialogVisible"
+      width="30%">
+      <span>{{dialog.tips}}</span>
+      <span slot="footer" class="dialog-footer"/>
+      <el-button @click="dialog.dialogVisible = false" :disabled="dialog.isDone">取 消</el-button>
+      <el-button type="primary" @click="dialog.dialogVisible = false" :disabled="!dialog.isDone">确 定</el-button>
+    </el-dialog>
   </div>
 
 </template>
 
 <script>
+  import Dialog from '@/components/Dialog/index'
+
   export default {
     name: 'index',
+    components: {
+      Dialog
+    },
     data() {
       return {
+        dialog: {
+          tips: '正在提交，请稍后...',
+          dialogVisible: false,
+          isDone: false
+        },
         ruleForm: {
           rep: '',
           deposit: '',
@@ -101,9 +153,11 @@
           name: [
             { required: true, message: '请输入任务名称' }
           ],
-          category: [{ required: true, message: '请选择'}],
+          category: [{ required: true, message: '请选择' }],
           date1: [{ required: true, message: '请选择日期' }],
           date2: [{ required: true, message: '请选择时间' }],
+          date3: [{ required: true, message: '请选择时间' }],
+          date4: [{ required: true, message: '请选择时间' }],
           desc: [{ required: true, message: '请输入描述' }]
 
         },
@@ -131,11 +185,14 @@
           }]
         },
         form: {
+          interface: '',
           rep: '',
           name: '',
           region: '',
           date1: '',
           date2: '',
+          date3: '',
+          date4: '',
           delivery: false,
           type: [],
           resource: '',
@@ -151,7 +208,7 @@
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit')
+            this.dialog.dialogVisible = true
           } else {
             return false
           }
@@ -165,6 +222,16 @@
   .container {
     .el-card {
       margin: 8px 0px;
+    }
+
+    .content-title {
+      text-align: center;
+      font-size: larger;
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+
+    .half-container {
+      width: 50%;
     }
 
     margin: 80px 90px;

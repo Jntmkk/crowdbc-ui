@@ -14,17 +14,21 @@ const taskData = Mock.mock({
   'items|30': [
     {
       id: '@id',
-      title:'@sentence(6)',
-      'category|1': ['Programmer', 'ImageRec', 'Scrapy'],
+      title: '@sentence(6)',
+      'category|1': ['提交报告', '物联网测试'],
       reward: '@integer(1,15)',
       deposit: '@integer(1,15)',
-      repLimit:'@integer(1,10)',
-      numLimit:'@integer(1,10)',
+      repLimit: '@integer(1,10)',
+      selectedNum: '@integer(1,10)',
+      numLimit: '@integer(1,10)',
       createdTime: '@datetime',
       confirmTime: '@datetime',
       deadline: '@datetime',
       rPublicKey: '@sentence(10)',
       rAddress: '@sentence(15)',
+      'status|1': ['delivery', 'accepted', 'finished', 'canceled'],
+      alreadyReceived: '@boolean',
+      'interface': '@url'
     }
   ]
 })

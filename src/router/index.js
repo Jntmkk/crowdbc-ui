@@ -96,8 +96,14 @@ export const constantRoutes = [
       }, {
         path: 'complexTable',
         name: 'ComplexTable',
-        component: () => import('@/views/worker/ComplexTable'),
+        component: () => import('@/views/worker/complex-table'),
         meta: { title: 'ComplexTable', icon: 'table' }
+      },
+      {
+        path:'doWork',
+        name:'doWork',
+        component:()=> import('@/views/worker/WorkingPage'),
+        meta:{title:'DoWork',icon:'table'}
       },
       {
         path: 'tree',
@@ -124,7 +130,13 @@ export const constantRoutes = [
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/requester/index'),
-        meta: { title: '已发布任务', icon: 'tree' }
+        meta: { title: '已发布任务', icon: 'tree'}
+      },
+      {
+        path: 'assessment',
+        name: 'assessment',
+        component: () => import('@/views/requester/Assessment'),
+        meta: { title: '评估', icon: 'tree' }
       }
     ]
   },
