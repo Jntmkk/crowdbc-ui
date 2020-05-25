@@ -3,9 +3,7 @@
 
     <el-row>
       <el-col :span="8">
-        <label-wrap>
-          <label>选择待处理任务:</label>
-        </label-wrap>
+        <el-tag>选择待处理任务:</el-tag>
         <el-select v-model="value" placeholder="请选择">
           <el-option
             v-for="item in workList"
@@ -16,15 +14,15 @@
       </el-col>
       <template v-if="value.length!==0&&value.category==='物联网测试'">
         <el-col span="7">
-          <label-wrap>
+          <el-tag>
             <label>类别:</label>
-          </label-wrap>
+          </el-tag>
           <el-tag type="primary">{{value.category}}</el-tag>
         </el-col>
         <el-col :span="8">
-          <label-wrap>
+          <el-tag>
             <label>测试接口:</label>
-          </label-wrap>
+          </el-tag>
           <el-tag type="primary">{{value.interface}}</el-tag>
         </el-col>
       </template>
@@ -34,9 +32,9 @@
       <div v-if="value.category==='物联网测试'">
         <el-card>
           <div slot="header" class="clearfix">
-            <label-wrap>
+            <el-tag>
               <span>配置参数</span>
-            </label-wrap>
+            </el-tag>
           </div>
           <el-form :model="form" label-width="80px">
 
@@ -84,26 +82,37 @@
             </el-row>
           </el-form>
         </el-card>
-        <el-card>
-          <div slot="header">
-            <span>测试</span>
-          </div>
-          <el-row type="flex" class="flex-container">
-            <el-col :span="12">
-              <el-input type="textarea" v-model="form.log" rows="10"></el-input>
-            </el-col>
-            <el-col :span="12">
-              <div class="nested-container">
-                <el-tag type="primary">KK</el-tag>
-                <el-tag type="primary">KK</el-tag>
-                <el-tag type="primary">KK</el-tag>
-                <el-tag type="primary">KK</el-tag>
-              </div>
-            </el-col>
-          </el-row>
-        </el-card>
-      </div>
 
+        <el-row style="margin: 5px 0px">
+          <el-card>
+            <div slot="header">
+              <el-tag>测试</el-tag>
+            </div>
+            <el-col :span="12">
+              <el-card>
+                <div slot="header">
+                  <el-tag>日志</el-tag>
+                </div>
+                <el-input type="textarea" disabled="true" v-model="form.log" rows="10"></el-input>
+              </el-card>
+            </el-col>
+            <el-col :span="12">
+              <el-card style="margin: 0px 5px">
+                <div slot="header">
+                  <el-tag>控制</el-tag>
+                </div>
+                <el-row>
+                  <el-col :span="8">
+                    <el-button type="primary" round>灯亮</el-button>
+                    <el-button type="primary" round>灯灭</el-button>
+                  </el-col>
+                </el-row>
+              </el-card>
+            </el-col>
+          </el-card>
+
+        </el-row>
+      </div>
     </div>
   </div>
 </template>
@@ -168,9 +177,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .nested-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 8px;
-  }
+
 </style>

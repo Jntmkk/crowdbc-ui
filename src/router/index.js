@@ -86,13 +86,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/worker/taskTable',
     name: 'Worker',
-    meta: { title: 'I am worker', icon: 'worker' },
+    meta: { title: '工作者', icon: 'worker' },
     children: [
       {
         path: 'taskTable',
         name: 'TaskTable',
         component: () => import('@/views/worker/TaskTable'),
-        meta: { title: 'Task', icon: 'table' }
+        meta: { title: '任务列表', icon: 'table' }
       }, {
         path: 'complexTable',
         name: 'ComplexTable',
@@ -103,14 +103,14 @@ export const constantRoutes = [
         path: 'doWork',
         name: 'doWork',
         component: () => import('@/views/worker/WorkingPage'),
-        meta: { title: 'DoWork', icon: 'table' }
+        meta: { title: '测试', icon: 'table' }
       },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/worker/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
+      // {
+      //   path: 'tree',
+      //   name: 'Tree',
+      //   component: () => import('@/views/worker/index'),
+      //   meta: { title: 'Tree', icon: 'tree' }
+      // }
     ]
   },
   {
@@ -118,7 +118,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/requester/table',
     name: 'Requester',
-    meta: { title: 'I am requester', icon: 'request' },
+    meta: { title: '发布者', icon: 'request' },
     children: [
       {
         path: 'table',
