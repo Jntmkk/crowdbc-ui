@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       dialog: {
-        tips: '正在提交，请稍后...',
+        tips: '智能硬件检测中，请稍等...',
         dialogVisible: false,
         isDone: false
       },

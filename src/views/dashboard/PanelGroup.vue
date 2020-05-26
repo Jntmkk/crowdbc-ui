@@ -3,11 +3,11 @@
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('newTransaction')">
         <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="transaction" class-name="card-panel-icon"/>
+          <svg-icon icon-class="task" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            新交易
+            已发布任务
           </div>
           <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
         </div>
@@ -16,11 +16,11 @@
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('totalTransaction')">
         <div class="card-panel-icon-wrapper icon-reputation">
-          <svg-icon icon-class="transaction" class-name="card-panel-icon"/>
+          <svg-icon icon-class="task" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            交易总量
+            已接收任务
           </div>
           <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
         </div>
@@ -29,7 +29,7 @@
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('reputation')">
         <div class="card-panel-icon-wrapper icon-reputation">
-          <svg-icon icon-class="transaction" class-name="card-panel-icon"/>
+          <svg-icon icon-class="rep" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
@@ -42,11 +42,11 @@
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
       <div class="card-panel" @click="handleSetLineChartData('reputation')">
         <div class="card-panel-icon-wrapper icon-reputation">
-          <svg-icon icon-class="transaction" class-name="card-panel-icon"/>
+          <svg-icon icon-class="reward" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            荣誉
+            奖励
           </div>
           <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
         </div>

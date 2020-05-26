@@ -52,7 +52,42 @@ export default [
     url: '/vue-admin-template/table/taskTable',
     type: 'get',
     response: config => {
-      const items = taskData.items
+      // const items = taskData.items
+      const items = [{
+        id: '1',
+        title: '物联网LED',
+        'category|1': [ '物联网测试'],
+        reward: '30',
+        deposit: '30',
+        repLimit: '70',
+        selectedNum: '1',
+        numLimit: '3',
+        createdTime: '"2020-05-15 13:34:54"',
+        confirmTime: '2020-05-15 13:40:17',
+        deadline: '2020-06-1 13:34:54',
+        rPublicKey: '',
+        rAddress: '',
+        'status|1': ['delivery', 'accepted', 'finished', 'canceled'],
+        alreadyReceived: 'false',
+        'interface': '@url'
+      }, {
+        id: '2',
+        title: '物联网LED2',
+        'category|1': [ '物联网测试'],
+        reward: '30',
+        deposit: '30',
+        repLimit: '70',
+        selectedNum: '1',
+        numLimit: '3',
+        createdTime: '"2020-05-16 12:43:54"',
+        confirmTime: '2020-05-16 12:50:11',
+        deadline: '2020-06-1 12:43:54',
+        rPublicKey: '',
+        rAddress: '',
+        'status|1': ['delivery', 'accepted', 'finished', 'canceled'],
+        alreadyReceived: 'false',
+        'interface': '@url'
+      }]
       return {
         code: 20000,
         data: {

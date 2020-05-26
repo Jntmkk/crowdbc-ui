@@ -1,15 +1,14 @@
 <template>
   <div style="margin: 15px 30px">
-
     <el-row>
       <el-col :span="8">
         <el-tag>选择待处理任务:</el-tag>
-        <el-select v-model="value" placeholder="请选择">
+        <el-select v-model="title" placeholder="请选择" v-on:change="getValue(title)">
           <el-option
             v-for="item in workList"
             :key="item.id"
             :label="item.title"
-            :value="item"></el-option>
+            :value="item.title"></el-option>
         </el-select>
       </el-col>
       <template v-if="value.length!==0&&value.category==='物联网测试'">
@@ -101,16 +100,11 @@
                 <div slot="header">
                   <el-tag>控制</el-tag>
                 </div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-button type="primary" round>灯亮</el-button>
-                    <el-button type="primary" round>灯灭</el-button>
-                  </el-col>
-                </el-row>
+                <el-input type="textarea" v-model="form.cmd" rows="7"></el-input>
+                <el-button style="width: 100%;margin-top:5px" type="primary">发送指令</el-button>
               </el-card>
             </el-col>
           </el-card>
-
         </el-row>
       </div>
     </div>
@@ -131,43 +125,30 @@
           deviceType: '',
           ledKey: '',
           ledValue: '',
-          iotPlatform: ''
+          iotPlatform: '',
+          cmd: ''
         },
-        options: [{
-          label: '热门城市',
-          options: [{
-            value: 'Shanghai',
-            label: '上海'
-          }, {
-            value: 'Beijing',
-            label: '北京'
-          }]
-        }, {
-          label: '城市名',
-          options: [{
-            value: 'Chengdu',
-            label: '成都'
-          }, {
-            value: 'Shenzhen',
-            label: '深圳'
-          }, {
-            value: 'Guangzhou',
-            label: '广州'
-          }, {
-            value: 'Dalian',
-            label: '大连'
-          }]
-        }],
+        title: '',
         workList: [],
         value: ''
       }
     },
+    watch: {},
     methods: {
       fetchList: function() {
         getTaskList().then(response => {
           this.workList = response.data.items
         })
+      },
+      getValue: function(prop) {
+        this.value = this.workList.find(v => {
+          console.log(v.title)
+          if (v.title === prop) {
+            return true
+          }
+        })
       }
+
     },
     created() {
       this.fetchList()
