@@ -1,28 +1,28 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newTransaction')">
-        <div class="card-panel-icon-wrapper icon-people">
+      <div class="card-panel" @click="handleSetLineChartData('postedTask')">
+        <div class="card-panel-icon-wrapper icon-posted-task">
           <svg-icon icon-class="task" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
             已发布任务
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="3" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('totalTransaction')">
-        <div class="card-panel-icon-wrapper icon-reputation">
+      <div class="card-panel" @click="handleSetLineChartData('receivedTask')">
+        <div class="card-panel-icon-wrapper icon-received-task">
           <svg-icon icon-class="task" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
             已接收任务
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="1" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -35,20 +35,20 @@
           <div class="card-panel-text">
             荣誉
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="75" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('reputation')">
-        <div class="card-panel-icon-wrapper icon-reputation">
+      <div class="card-panel" @click="handleSetLineChartData('reward')">
+        <div class="card-panel-icon-wrapper icon-reward">
           <svg-icon icon-class="reward" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
             奖励
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="30" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -95,11 +95,11 @@
           color: #fff;
         }
 
-        .icon-people {
+        .icon-posted-task {
           background: #40c9c6;
         }
 
-        .icon-message {
+        .icon-received-task {
           background: #36a3f7;
         }
 
@@ -107,7 +107,7 @@
           background: #f4516c;
         }
 
-        .icon-shopping {
+        .icon-reward {
           background: #34bfa3
         }
 
@@ -120,19 +120,19 @@
         color: #f4516c;
       }
 
-      .icon-people {
+      .icon-posted-task {
         color: #40c9c6;
       }
 
-      .icon-message {
+      .icon-received-task {
         color: #36a3f7;
       }
 
-      .icon-money {
+      .icon-reputation {
         color: #f4516c;
       }
 
-      .icon-shopping {
+      .icon-reward {
         color: #34bfa3
       }
 

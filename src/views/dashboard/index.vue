@@ -2,15 +2,16 @@
   <div class="dashboard-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData"/>
     <el-row style="background-color: #fff;padding: 16px 16px 0;margin-bottom: 32px">
-      <line-chart :chart-data="lineChartData"/>
+      <line-chart :chart-data="lineChartData" :legend-name="legendName"/>
     </el-row>
     <el-row :gutter="8">
-      <el-col :xs="{span:24}" :sm="{span:24}" :md="{span:24}" :lg="{span:12}" :xl="{span:12}" style="padding-right:8px;margin-bottom:30px;">
+      <el-col :xs="{span:24}" :sm="{span:24}" :md="{span:24}" :lg="{span:12}" :xl="{span:12}"
+              style="padding-right:8px;margin-bottom:30px;">
         <transaction-table/>
       </el-col>
       <el-col :xs="{span:24}" :sm="{span:24}" :md="{span:24}" :lg="{span:12}" :xl="{span:12}"
               style="padding-right:8px;margin-bottom:30px;">
-        <todo-list />
+        <todo-list/>
       </el-col>
     </el-row>
   </div>
@@ -25,28 +26,29 @@
   import TodoList from './TodoList'
 
   const lineChartData = {
-    newTransaction: {
-      expectedData: [100, 120, 161, 134, 105, 160, 165],
-      actualData: [120, 82, 91, 154, 162, 140, 145]
+    postedTask: {
+      expectedData: [0, 0, 0, 1, 2, 3, 3]
+      // actualData: [120, 82, 91, 154, 162, 140, 145]
     },
-    totalTransaction: {
-      expectedData: [200, 192, 120, 144, 160, 130, 140],
-      actualData: [180, 160, 151, 106, 145, 150, 130]
+    receivedTask: {
+      expectedData: [0, 0, 0, 1, 1, 1, 1]
+      // actualData: [180, 160, 151, 106, 145, 150, 130]
     },
     reputation: {
-      expectedData: [80, 100, 121, 104, 105, 90, 100],
-      actualData: [120, 90, 100, 138, 142, 130, 130]
+      expectedData: [70, 70, 70, 70, 75, 75, 75]
+      // actualData: [120, 90, 100, 138, 142, 130, 130]
     },
-    shoppings: {
-      expectedData: [130, 140, 141, 142, 145, 150, 160],
-      actualData: [120, 82, 91, 154, 162, 140, 130]
+    reward: {
+      expectedData: [0, 0, 0, 0, 0, 30, 30]
+      // actualData: [120, 82, 91, 154, 162, 140, 130]
     }
   }
   export default {
     name: 'Dashboard',
-    components: { TransactionTable, LineChart, PanelGroup,TodoList},
+    components: { TransactionTable, LineChart, PanelGroup, TodoList },
     data() {
       return {
+        legendName: ['PostedTask'],
         lineChartData: lineChartData.newTransaction
       }
     },
@@ -58,6 +60,7 @@
     methods: {
       handleSetLineChartData(type) {
         this.lineChartData = lineChartData[type]
+        this.legendName[0] = type
       }
     }
   }

@@ -56,7 +56,7 @@ export default [
       const items = [{
         id: '1',
         title: '物联网LED',
-        'category|1': [ '物联网测试'],
+        'category|1': ['物联网测试'],
         reward: '30',
         deposit: '30',
         repLimit: '70',
@@ -67,13 +67,13 @@ export default [
         deadline: '2020-06-1 13:34:54',
         rPublicKey: '',
         rAddress: '',
-        'status|1': ['delivery', 'accepted', 'finished', 'canceled'],
+        status: 'finished',
         alreadyReceived: 'false',
         'interface': '@url'
       }, {
         id: '2',
         title: '物联网LED2',
-        'category|1': [ '物联网测试'],
+        'category|1': ['物联网测试'],
         reward: '30',
         deposit: '30',
         repLimit: '70',
@@ -84,7 +84,7 @@ export default [
         deadline: '2020-06-1 12:43:54',
         rPublicKey: '',
         rAddress: '',
-        'status|1': ['delivery', 'accepted', 'finished', 'canceled'],
+        status: 'accepted',
         alreadyReceived: 'false',
         'interface': '@url'
       }]
