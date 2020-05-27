@@ -51,12 +51,14 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
+    props: true,
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' },
+      props: true
     }]
   },
 
@@ -106,6 +108,12 @@ export const constantRoutes = [
         component: () => import('@/views/worker/WorkingPage'),
         meta: { title: '测试', icon: 'table' }
       },
+      {
+        path: 'report',
+        name: 'report',
+        component: () => import('@/views/worker/report'),
+        meta: { title: '提交报告', icon: 'table' }
+      }
       // {
       //   path: 'tree',
       //   name: 'Tree',
@@ -130,7 +138,7 @@ export const constantRoutes = [
       {
         path: 'tree',
         name: 'Tree',
-        component: () => import('@/views/requester/index'),
+        component: () => import('@/views/requester/postedTask'),
         meta: { title: '已发布任务', icon: 'tree' }
       },
       {

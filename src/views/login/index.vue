@@ -131,7 +131,11 @@
           if (valid) {
             this.loading = true
             this.$store.dispatch('user/login', this.loginForm).then(() => {
-              this.$router.push({ path: this.redirect || '/' })
+              if (this.loginType === '登录') {
+                this.$router.push({ path: this.redirect || '/', query: { type: 'login' } })
+              } else {
+                this.$router.push({ path: this.redirect || '/', query: { type: 'register' } })
+              }
               this.loading = false
             }).catch(() => {
               this.loading = false

@@ -9,7 +9,7 @@
           <div class="card-panel-text">
             已发布任务
           </div>
-          <count-to :start-val="0" :end-val="3" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -22,7 +22,7 @@
           <div class="card-panel-text">
             已接收任务
           </div>
-          <count-to :start-val="0" :end-val="1" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -35,7 +35,7 @@
           <div class="card-panel-text">
             荣誉
           </div>
-          <count-to :start-val="0" :end-val="75" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="70" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -48,7 +48,7 @@
           <div class="card-panel-text">
             奖励
           </div>
-          <count-to :start-val="0" :end-val="30" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>

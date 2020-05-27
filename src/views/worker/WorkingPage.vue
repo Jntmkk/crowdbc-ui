@@ -81,7 +81,6 @@
             </el-row>
           </el-form>
         </el-card>
-
         <el-row style="margin: 5px 0px">
           <el-card>
             <div slot="header">
@@ -118,6 +117,7 @@
     name: 'WorkingPage',
     data() {
       return {
+        fileList: [],
         form: {
           requestType: '',
           params: '',

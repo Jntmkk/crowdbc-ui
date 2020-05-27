@@ -17,7 +17,7 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="类别" header-align="center" align="center" width="110">
+      <el-table-column label="类别" header-align="center" align="center" width="120">
         <template v-slot="scope">
           {{scope.row.category}}
         </template>

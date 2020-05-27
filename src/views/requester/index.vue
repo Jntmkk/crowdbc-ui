@@ -10,7 +10,7 @@
           <el-form-item label="任务类别" prop="category">
             <el-select v-model="form.category" placeholder="请选择任务类别">
               <el-option label="物联网测试" value="iotTest"></el-option>
-              <el-option label="提交报告" value="submitRep"></el-option>
+              <el-option label="物联网设备邮寄" value="submitRep"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -75,7 +75,16 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row>
+        <el-col :span="8">
+          <el-form-item label="选择账户" prop="account">
+            <el-select v-model="form.account">
+              <el-option label="main" value="main"></el-option>
+            </el-select>
+          </el-form-item>
 
+        </el-col>
+      </el-row>
 
       <!--      <el-form-item label="活动性质">-->
       <!--        <el-checkbox-group v-model="form.type">-->
@@ -154,6 +163,7 @@
             { required: true, message: '请输入任务名称' }
           ],
           category: [{ required: true, message: '请选择' }],
+          account: [{ required: true, message: '请选择' }],
           date1: [{ required: true, message: '请选择日期' }],
           date2: [{ required: true, message: '请选择时间' }],
           date3: [{ required: true, message: '请选择时间' }],
@@ -185,6 +195,7 @@
           }]
         },
         form: {
+          account: '',
           interface: '',
           rep: '',
           name: '',

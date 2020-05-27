@@ -67,7 +67,7 @@ export default [
         deadline: '2020-06-1 13:34:54',
         rPublicKey: '',
         rAddress: '',
-        status: 'finished',
+        status: 'accepted',
         alreadyReceived: 'false',
         'interface': '@url'
       }, {
@@ -86,6 +86,23 @@ export default [
         rAddress: '',
         status: 'accepted',
         alreadyReceived: 'false',
+        'interface': '@url'
+      }, {
+        id: '3',
+        title: '物联网设备',
+        'category|1': ['物联网设备邮寄'],
+        reward: '0',
+        deposit: '0',
+        repLimit: '70',
+        selectedNum: '1',
+        numLimit: '1',
+        createdTime: '"2020-05-17 12:43:54"',
+        confirmTime: '2020-05-17 12:50:11',
+        deadline: '2020-06-1 12:43:54',
+        rPublicKey: '',
+        rAddress: '',
+        status: 'delivery',
+        alreadyReceived: 'true',
         'interface': '@url'
       }]
       return {

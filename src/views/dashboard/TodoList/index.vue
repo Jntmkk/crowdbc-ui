@@ -47,8 +47,9 @@ const filters = {
   completed: todos => todos.filter(todo => todo.done)
 }
 const defalutList = [
-  { text: '物联网LED', done: true },
-  { text: '物联网LED1', done: false }]
+  // { text: '物联网LED', done: true },
+  // { text: '物联网LED1', done: false }
+  ]
 export default {
   components: { Todo },
   filters: {
