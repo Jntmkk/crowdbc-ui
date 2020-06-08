@@ -67,7 +67,7 @@ export default [
         deadline: '2020-06-1 13:34:54',
         rPublicKey: '',
         rAddress: '',
-        status: 'accepted',
+        status: 'finished',
         alreadyReceived: 'false',
         'interface': '@url'
       }, {

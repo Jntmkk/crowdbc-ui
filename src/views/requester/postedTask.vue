@@ -38,18 +38,18 @@
         </template>
 
       </el-table-column>
-      <!--      <el-table-column label="创建时间" header-align="center" align="center" mini-width="90">-->
-      <!--        <template v-slot="scope">-->
-      <!--          {{scope.row.createdTime}}-->
-      <!--        </template>-->
+      <!--            <el-table-column label="创建时间" header-align="center" align="center" mini-width="90">-->
+      <!--              <template v-slot="scope">-->
+      <!--                {{scope.row.createdTime}}-->
+      <!--              </template>-->
 
-      <!--      </el-table-column>-->
-      <!--      <el-table-column label="确认时间" header-align="center" align="center" mini-width="90">-->
-      <!--        <template v-slot="scope">-->
-      <!--          {{scope.row.confirmTime}}-->
-      <!--        </template>-->
+      <!--            </el-table-column>-->
+      <!--            <el-table-column label="确认时间" header-align="center" align="center" mini-width="90">-->
+      <!--              <template v-slot="scope">-->
+      <!--                {{scope.row.confirmTime}}-->
+      <!--              </template>-->
 
-      <!--      </el-table-column>-->
+      <!--            </el-table-column>-->
       <el-table-column label="截止时间" header-align="center" align="center" min-width="120">
         <template v-slot="scope">
           {{scope.row.deadline|timeFilter}}
@@ -76,24 +76,25 @@
       <!--          </span>-->
       <!--        </template>-->
       <!--      </el-table-column>-->
-<!--      <el-table-column label="操作" header-align="center" align="center" min-width="250">-->
-<!--        <template v-slot="scope">-->
-<!--          &lt;!&ndash;          <el-tag :type="scope.row"&ndash;&gt;-->
-<!--          <el-button size="mini" type="info" :key="scope.$index">-->
-<!--            详情<i class="el-icon-arrow-right"></i>-->
-<!--          </el-button>-->
-<!--          <el-button v-if="!scope.row.alreadyReceived" size="mini" type="info" :disabled="!repRequiredMap(scope.row)"-->
-<!--                     style="width: 20%"-->
-<!--                     @click="receive(scope.row)">-->
-<!--            接收<i class="el-icon-arrow-right"></i>-->
-<!--          </el-button>-->
-<!--          <el-button v-if="scope.row.alreadyReceived" size="mini" type="info" :disabled="!repRequiredMap(scope.row)"-->
-<!--                     @click="receive(scope.row)"-->
-<!--                     style="width: 20%">-->
-<!--            已接收<i class="el-icon-arrow-right"></i>-->
-<!--          </el-button>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <el-table-column label="操作" header-align="center" align="center" min-width="100">
+        <template v-slot="scope">
+          <!--          <el-tag :type="scope.row"-->
+          <!--          <el-button size="mini" type="info" :key="scope.$index">-->
+          <!--            详情<i class="el-icon-arrow-right"></i>-->
+          <!--          </el-button>-->
+          <!--          <el-button v-if="!scope.row.alreadyReceived" size="mini" type="info" :disabled="!repRequiredMap(scope.row)"-->
+          <!--                     style="width: 20%"-->
+          <!--                     @click="receive(scope.row)">-->
+          <!--            接收<i class="el-icon-arrow-right"></i>-->
+          <!--          </el-button>-->
+          <!--          <el-button v-if="scope.row.alreadyReceived" size="mini" type="info" :disabled="!repRequiredMap(scope.row)"-->
+          <!--                     @click="receive(scope.row)"-->
+          <!--                     style="width: 20%">-->
+          <!--            已接收<i class="el-icon-arrow-right"></i>-->
+          <!--          </el-button>-->
+          <el-button type="primary" :disabled="scope.row.status | statusFilter" round>下载报告</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-row style="margin-left: 80px;margin-top: 8px" :gutter="1">
       <el-col :span="2" :offset="16">
@@ -119,6 +120,13 @@
   export default {
     name: 'PostedTask',
     filters: {
+      statusFilter(val) {
+        if (val === 'finished') {
+          return false
+        } else {
+          return true
+        }
+      },
       reputationFilter(rep) {
         const statusMap = {
           published: 'success',
