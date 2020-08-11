@@ -7,7 +7,7 @@
               highlight-current-row>
       <el-table-column align="center" label="序号" width="95">
         <template v-slot="scope">
-          {{parseInt(scope.$index)+1}}
+          {{parseInt(scope.row.id)}}
         </template>
       </el-table-column>
       <el-table-column header-align="center" align="left" width="320" label="标题">
@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column label="类别" header-align="center" align="center" width="120">
         <template v-slot="scope">
-          {{scope.row.category}}
+          {{scope.row.taskType|taskTypeFilter}}
         </template>
       </el-table-column>
       <el-table-column label="奖励" header-align="center" align="center" mini-width="90">
@@ -29,12 +29,12 @@
       </el-table-column>
       <el-table-column label="荣誉要求" header-align="center" align="center" mini-width="90">
         <template v-slot="scope">
-          {{scope.row.repLimit}}
+          {{scope.row.minReputation}}
         </template>
       </el-table-column>
       <el-table-column label="人数限制" header-align="center" align="center" mini-width="90">
         <template v-slot="scope">
-          {{scope.row.selectedNum}}/{{scope.row.numLimit}}
+          {{scope.row.currentWorkerNum}}/{{scope.row.maxWorkerNum}}
         </template>
 
       </el-table-column>
@@ -56,9 +56,11 @@
         </template>
 
       </el-table-column>
-      <el-table-column label="任务状态" header-align="center" align="center" mini-width="90">
+      <el-table-column label="任务状态" header-align="center" align="center" mini-width="150">
         <template v-slot="scope">
-          <el-button round :type="statusMap(scope.row.status)">{{scope.row.status}}</el-button>
+          <el-button round :type="scope.row.status|taskStatusFilter">
+            {{scope.row.status}}
+          </el-button>
         </template>
       </el-table-column>
       <!--      <el-table-column label="发布者公钥" header-align="center" align="center" mini-width="90">-->
@@ -76,21 +78,23 @@
       <!--          </span>-->
       <!--        </template>-->
       <!--      </el-table-column>-->
-      <el-table-column label="操作" header-align="center" align="center" min-width="250">
+      <el-table-column label="操作" header-align="center" align="center" min-width="150">
         <template v-slot="scope">
-          <!--          <el-tag :type="scope.row"-->
-          <el-button size="mini" type="info" :key="scope.$index">
-            详情<i class="el-icon-arrow-right"></i>
-          </el-button>
-          <el-button v-if="!scope.row.alreadyReceived" size="mini" type="info" :disabled="!repRequiredMap(scope.row)"
-                     style="width: 20%"
-                     @click="receive(scope.row)">
-            接收<i class="el-icon-arrow-right"></i>
-          </el-button>
-          <el-button v-if="scope.row.alreadyReceived" size="mini" type="info" :disabled="!repRequiredMap(scope.row)"
+          <!--          &lt;!&ndash;          <el-tag :type="scope.row"&ndash;&gt;-->
+          <!--          <el-button size="mini" type="info" :key="scope.$index">-->
+          <!--            详情<i class="el-icon-arrow-right"></i>-->
+          <!--          </el-button>-->
+          <!--          <el-button v-if="scope.row.receivedTime.length==0" size="mini" type="info"-->
+          <!--                     :disabled="!repRequiredMap(scope.row)"-->
+          <!--                     style="width: 20%"-->
+          <!--                     @click="receive(scope.row)">-->
+          <!--            接收<i class="el-icon-arrow-right"></i>-->
+          <!--          </el-button>-->
+          <el-button size="mini" type="info"
+                     :disabled="scope.row.maxWorkerNum-scope.row.currentWorkerNum<=0||isReceived(scope.row)"
                      @click="receive(scope.row)"
                      style="width: 20%">
-            已接收<i class="el-icon-arrow-right"></i>
+            {{getControlText(scope.row)}}<i class="el-icon-arrow-right"></i>
           </el-button>
         </template>
       </el-table-column>
@@ -115,11 +119,32 @@
 <script>
   // import task
   import { getTaskList } from '@/api/table'
+  import { acceptTask } from '../../api/user'
 
   export default {
     name: 'TaskTable',
     filters: {
-      reputationFilter(rep) {
+      taskStatusNameFilter: function(index) {
+        const arr = ['PENDING', 'UNACCEPTED', 'ACCEPTED', 'EVALUATING', 'COMPLETED']
+        return arr[index]
+      },
+      taskTypeFilter: function(taskType) {
+        const typeArray = [
+          '物联网测试', '物联网设备邮寄'
+        ]
+        return typeArray[taskType]
+      },
+      taskStatusFilter: function(status) {
+        const statusArray = {
+          PENDING: 'primary',
+          UNACCEPTED: 'success',
+          ACCEPTED: 'info',
+          EVALUATING: 'danger',
+          COMPLETED: 'warning'
+        }
+        return statusArray[status]
+      },
+      reputationFilter: function(rep) {
         const statusMap = {
           published: 'success',
           draft: 'gray',
@@ -127,13 +152,14 @@
         }
         return 'success'
       },
-      timeFilter(tm) {
-        let arr = tm.split(' ')
-        return arr[0]
+      timeFilter: function(timestamp) {
+
+        return new Date(timestamp)
       }
     },
     data() {
       return {
+        aList: [],
         dialog: {
           dialogVisible: false,
           isDone: false
@@ -150,12 +176,25 @@
       this.fetchData()
     },
     methods: {
+      isReceived: function(item2) {
+        return this.aList.find(item => item.id === item2.id) === null
+      },
+      getControlText: function(item) {
+        if (this.isReceived(item)) {
+          return '已接收'
+        } else {
+          return '接收'
+        }
+      },
       fetchData() {
         this.listLoading = true
-        getTaskList().then(response => {
-          this.list = response.data.items
-          this.listLoading = false
+        getTaskList({ isall: true }).then(response => {
+          this.list = response.data
         })
+        getTaskList({ type: 'received' }).then(response => {
+          this.aList = response.data
+        })
+        this.listLoading = false
       },
       nextPage: function() {
         this.fetchData()
@@ -178,13 +217,15 @@
       repRequiredMap: function(row) {
         return row.numLimit - row.selectedNum > 0
       },
-      receive: function(scope) {
-        this.$message({
-          showClose: true,
-          message: '接收成功',
-          type: 'success'
+      receive: function(row) {
+        acceptTask({ taskId: row.id, deposit: '30000000' }).then(response => {
+          this.$message({
+            showClose: true,
+            message: response.msg,
+            type: 'success'
+          })
         })
-        scope.alreadyReceived = true
+
       }
     }
   }

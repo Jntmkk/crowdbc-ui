@@ -21,6 +21,38 @@
           auto-complete="on"
         />
       </el-form-item>
+      <el-form-item prop="address" v-if="loginType==='注册'">
+        <span class="svg-container">
+          <svg-icon icon-class="user"/>
+        </span>
+        <el-input
+          ref="username"
+          v-model="loginForm.address"
+          placeholder="Address"
+          name="Address"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+          maxlength="42"
+          minlength="42"
+        />
+      </el-form-item>
+      <el-form-item prop="privateKey" v-if="loginType==='注册'">
+        <span class="svg-container">
+          <svg-icon icon-class="user"/>
+        </span>
+        <el-input
+          ref="key"
+          v-model="loginForm.privateKey"
+          placeholder="privateKey"
+          name="privateKey"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+          maxlength="64"
+          minlength="64"
+        />
+      </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
@@ -82,15 +114,25 @@
           callback()
         }
       }
+      const validateAddress = (rule, value, callback) => {
+        if (value.length != 42) {
+          callback(new Error('The address length must be 42'))
+        } else {
+          callback()
+        }
+      }
       return {
         loginType: '登录',
         loginForm: {
           username: 'admin',
-          password: '111111'
+          password: '111111',
+          address: '',
+          privateKey: ''
         },
         loginRules: {
           username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+          address: [{ required: true, trigger: 'blur', validator: validateAddress }]
         },
         loading: false,
         passwordType: 'password',
@@ -108,10 +150,10 @@
     methods: {
       changeType() {
         if (this.loginType === '登录') {
-          this.loginType = '注册并登录'
+          this.loginType = '注册'
           return
         }
-        if (this.loginType === '注册并登录') {
+        if (this.loginType === '注册') {
           this.loginType = '登录'
           return
         }
@@ -130,16 +172,25 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
-            this.$store.dispatch('user/login', this.loginForm).then(() => {
-              if (this.loginType === '登录') {
-                this.$router.push({ path: this.redirect || '/', query: { type: 'login' } })
-              } else {
+            if (this.loginType === '注册') {
+              this.$store.dispatch('user/signup', this.loginForm).then((code) => {
                 this.$router.push({ path: this.redirect || '/', query: { type: 'register' } })
-              }
-              this.loading = false
-            }).catch(() => {
-              this.loading = false
-            })
+                this.loading = false
+                if (code === '200') {
+                  this.changeType()
+                }
+              }).then(() => {
+                this.loading = false
+              })
+            } else {
+              this.$store.dispatch('user/login', this.loginForm).then(() => {
+                this.$router.push({ path: this.redirect || '/', query: { type: 'login' } })
+                this.loading = false
+              }).catch(() => {
+                this.loading = false
+              })
+            }
+
           } else {
             console.log('error submit!!')
             return false

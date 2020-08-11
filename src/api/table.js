@@ -1,19 +1,37 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function submitCommand(data) {
   return request({
-    url: '/vue-admin-template/table/list',
-    method: 'get',
-    params
+    url: '/api/command',
+    method: 'post',
+    data: data
   })
 }
-export function getTaskList(params) {
+
+export function getList(params) {
   return request({
-    url: '/vue-admin-template/table/taskTable',
+    url: '/table/list',
     method: 'get',
     params: params
   })
 }
+
+export function getTaskList(params) {
+  return request({
+    url: '/api/task',
+    method: 'get',
+    params: params
+  })
+}
+
+export function submitTask(data) {
+  return request({
+    url: '/api/task',
+    method: 'post',
+    data: data
+  })
+}
+
 // export function getTaskList(params) {
 //   return request({
 //     url: '',

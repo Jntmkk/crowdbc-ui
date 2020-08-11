@@ -2,15 +2,15 @@
   <div class="container">
     <p class="content-title">发布任务</p>
     <el-form ref="ruleForm" :model="form" label-width="80px" :rules="rules">
-      <el-form-item label="任务名称" prop="name">
-        <el-input v-model="form.name" class="half-container"></el-input>
+      <el-form-item label="任务名称" prop="title">
+        <el-input v-model="form.title" class="half-container"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span="4">
-          <el-form-item label="任务类别" prop="category">
-            <el-select v-model="form.category" placeholder="请选择任务类别">
-              <el-option label="物联网测试" value="iotTest"></el-option>
-              <el-option label="物联网设备邮寄" value="submitRep"></el-option>
+          <el-form-item label="任务类别" prop="taskType">
+            <el-select v-model="form.taskType" placeholder="请选择任务类别">
+              <el-option label="物联网测试" value="0"></el-option>
+              <el-option label="物联网设备邮寄" value="1"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -21,36 +21,44 @@
         </el-col>
       </el-row>
 
-      <el-form-item label="截止日期" prop="date1">
-        <el-col :span="11">
-          <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-        </el-col>
-        <el-col class="line" :span="2">-</el-col>
-        <el-col :span="11">
-          <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-        </el-col>
+      <el-form-item label="截止日期" prop="deadline">
+        <el-date-picker
+          v-model="form.deadline"
+          type="datetime"
+          placeholder="选择日期时间"
+          align="right"
+          :picker-options="pickerOptions"
+          value-format="timestamp">
+        </el-date-picker>
+        <!--        <el-col :span="11">-->
+        <!--          <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>-->
+        <!--        </el-col>-->
+        <!--        <el-col class="line" :span="2">-</el-col>-->
+        <!--        <el-col :span="11">-->
+        <!--          <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>-->
+        <!--        </el-col>-->
       </el-form-item>
-      <el-form-item label="接收时限" prop="date3">
-        <el-col :span="11">
-          <el-date-picker type="date" placeholder="选择日期" v-model="form.date3" style="width: 100%;"></el-date-picker>
-        </el-col>
-        <el-col class="line" :span="2">-</el-col>
-        <el-col :span="11">
-          <el-time-picker placeholder="选择时间" v-model="form.date4" style="width: 100%;"></el-time-picker>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="发布时机" prop="delivery">
-        <el-switch v-model="form.delivery" active-text="定时发布" inactive-text="即时发布"></el-switch>
-        <div v-if="form.delivery" class="el-form--inline" style="display: inline;margin-left: 55px">
-          <el-date-picker
-            v-model="value2"
-            type="datetime"
-            placeholder="选择日期时间"
-            align="right"
-            :picker-options="pickerOptions">
-          </el-date-picker>
-        </div>
-      </el-form-item>
+      <!--      <el-form-item label="接收时限" prop="date3">-->
+      <!--        <el-col :span="11">-->
+      <!--          <el-date-picker type="date" placeholder="选择日期" v-model="form.date3" style="width: 100%;"></el-date-picker>-->
+      <!--        </el-col>-->
+      <!--        <el-col class="line" :span="2">-</el-col>-->
+      <!--        <el-col :span="11">-->
+      <!--          <el-time-picker placeholder="选择时间" v-model="form.date4" style="width: 100%;"></el-time-picker>-->
+      <!--        </el-col>-->
+      <!--      </el-form-item>-->
+      <!--      <el-form-item label="发布时机" prop="delivery">-->
+      <!--        <el-switch v-model="form.delivery" active-text="定时发布" inactive-text="即时发布"></el-switch>-->
+      <!--        <div v-if="form.delivery" class="el-form&#45;&#45;inline" style="display: inline;margin-left: 55px">-->
+      <!--          <el-date-picker-->
+      <!--            v-model="value2"-->
+      <!--            type="datetime"-->
+      <!--            placeholder="选择日期时间"-->
+      <!--            align="right"-->
+      <!--            :picker-options="pickerOptions">-->
+      <!--          </el-date-picker>-->
+      <!--        </div>-->
+      <!--      </el-form-item>-->
       <el-row type="flex" class="row-bg">
         <el-col span="12">
           <el-form-item label="押金" prop="deposit" class="half-container">
@@ -58,8 +66,8 @@
           </el-form-item>
         </el-col>
         <el-col span="12">
-          <el-form-item label="接收数量" prop="num" class="half-container">
-            <el-input v-model.number="form.num"/>
+          <el-form-item label="接收数量" prop="maxWorkerNum" class="half-container">
+            <el-input v-model.number="form.maxWorkerNum"/>
           </el-form-item>
         </el-col>
       </el-row>
@@ -70,21 +78,21 @@
           </el-form-item>
         </el-col>
         <el-col span="12">
-          <el-form-item label="最低信誉" prop="rep" class="half-container">
-            <el-input v-model.number="form.rep"/>
+          <el-form-item label="最低信誉" prop="minReputation" class="half-container">
+            <el-input v-model.number="form.minReputation"/>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span="8">
-          <el-form-item label="选择账户" prop="account">
-            <el-select v-model="form.account">
-              <el-option label="main" value="main"></el-option>
-            </el-select>
-          </el-form-item>
+      <!--      <el-row>-->
+      <!--        <el-col :span="8">-->
+      <!--          <el-form-item label="选择账户" prop="account">-->
+      <!--            <el-select v-model="form.account">-->
+      <!--              <el-option label="main" value="main"></el-option>-->
+      <!--            </el-select>-->
+      <!--          </el-form-item>-->
 
-        </el-col>
-      </el-row>
+      <!--        </el-col>-->
+      <!--      </el-row>-->
 
       <!--      <el-form-item label="活动性质">-->
       <!--        <el-checkbox-group v-model="form.type">-->
@@ -100,8 +108,11 @@
       <!--          <el-radio label="线下场地免费"></el-radio>-->
       <!--        </el-radio-group>-->
       <!--      </el-form-item>-->
-      <el-form-item label="任务描述" prop="desc">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+      <el-form-item label="任务描述" prop="description">
+        <el-input type="textarea" v-model="form.description"></el-input>
+      </el-form-item>
+      <el-form-item label="附件地址" prop="pointer">
+        <el-input type="textarea" v-model="form.pointer"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('ruleForm')">立即创建</el-button>
@@ -123,6 +134,8 @@
 
 <script>
   import Dialog from '@/components/Dialog/index'
+  import { submitTask } from '@/api/table'
+  import { MessageBox, Message } from 'element-ui'
 
   export default {
     name: 'index',
@@ -151,24 +164,25 @@
             { required: true, message: '请输入数字' },
             { type: 'number', message: '必须为数字' }
           ],
-          num: [
+          maxWorkerNum: [
             { required: true, message: '请输入数字' },
             { type: 'number', message: '必须为数字' }
           ],
-          rep: [
+          minReputation: [
             { required: true, message: '请输入数字' },
             { type: 'number', message: '必须为数字' }
           ],
-          name: [
+          title: [
             { required: true, message: '请输入任务名称' }
           ],
-          category: [{ required: true, message: '请选择' }],
-          account: [{ required: true, message: '请选择' }],
-          date1: [{ required: true, message: '请选择日期' }],
-          date2: [{ required: true, message: '请选择时间' }],
-          date3: [{ required: true, message: '请选择时间' }],
-          date4: [{ required: true, message: '请选择时间' }],
-          desc: [{ required: true, message: '请输入描述' }]
+          taskType: [{ required: true, message: '请选择' }],
+          // account: [{ required: true, message: '请选择' }],
+          // date1: [{ required: true, message: '请选择日期' }],
+          // date2: [{ required: true, message: '请选择时间' }],
+          // date3: [{ required: true, message: '请选择时间' }],
+          // date4: [{ required: true, message: '请选择时间' }],
+          description: [{ required: true, message: '请输入描述' }],
+          deadline: [{ required: true, message: '请选择截止日期' }]
 
         },
         value2: '',
@@ -195,23 +209,18 @@
           }]
         },
         form: {
-          account: '',
-          interface: '',
-          rep: '',
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          date3: '',
-          date4: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: '',
-          category: '',
-          num: '',
-          deposit: '',
-          reward: ''
+          pointer: '',
+          title: '',
+          reward: null,
+          deposit: null,
+          deadline: null,
+          maxWorkerNum: null,
+          minReputation: null,
+          taskType: null,
+          status: 'UNACCEPTED',
+          pointer: '',
+          description: '',
+          currentWorkerNum: 0
         }
       }
     },
@@ -220,7 +229,21 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.dialog.dialogVisible = true
+            submitTask(this.form).then(response => {
+              this.dialog.dialogVisible = false
+              Message({
+                message: response.msg,
+                type: 'success',
+                duration: 5 * 1000
+              })
+            })
+            /**
+             * 提交逻辑
+             */
           } else {
+            /**
+             * 数据不符合规范
+             */
             return false
           }
         })

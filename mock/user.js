@@ -1,4 +1,5 @@
-import { config } from '@vue/test-utils'
+// import { config } from '@vue/test-utils'
+// import user from '@/store/modules/user'
 
 const tokens = {
   admin: {
@@ -27,6 +28,18 @@ const users = {
 }
 
 export default [
+  {
+    url: '/api/auth/signup',
+    type: 'post',
+    response: config => {
+      const { username, password } = config.body
+      return {
+        code: '200',
+        msg: 'success',
+        data: null
+      }
+    }
+  },
   // user login
   {
     url: '/vue-admin-template/user/login',
@@ -34,7 +47,6 @@ export default [
     response: config => {
       const { username } = config.body
       const token = tokens[username]
-
       // mock error
       if (!token) {
         return {
@@ -44,7 +56,7 @@ export default [
       }
 
       return {
-        code: 20000,
+        code: '200',
         data: token
       }
     }
@@ -61,7 +73,7 @@ export default [
           msg: 'already login'
         }
         return {
-          code: 200,
+          code: '200',
           msg: 'success'
         }
       }
@@ -85,7 +97,7 @@ export default [
       }
 
       return {
-        code: 20000,
+        code: '200',
         data: info
       }
     }
@@ -97,7 +109,7 @@ export default [
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        code: '200',
         data: 'success'
       }
     }

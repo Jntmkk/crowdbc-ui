@@ -1,6 +1,8 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, signup } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import { MessageBox, Message } from 'element-ui'
+import da from 'element-ui/src/locale/lang/da'
 
 const getDefaultState = () => {
   return {
@@ -42,7 +44,31 @@ const actions = {
       })
     })
   },
-
+  signup({ commit }, userINfo) {
+    const { username, password, address, privateKey } = userINfo
+    return new Promise((resolve, reject) => {
+      signup({ username: username.trim(), password, address, privateKey }).then(response => {
+        const { code, msg } = response
+        console.log(JSON.stringify(response))
+        if (code === '200') {
+          Message({
+            message: msg,
+            type: 'success',
+            duration: 5 * 1000
+          })
+        } else {
+          Message({
+            message: msg,
+            type: 'error',
+            duration: 5 * 1000
+          })
+        }
+        resolve(code)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
@@ -53,8 +79,8 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
-        commit('SET_NAME', name)
+        const { username, avatar } = data
+        commit('SET_NAME', username)
         commit('SET_AVATAR', avatar)
         resolve(data)
       }).catch(error => {
