@@ -32,7 +32,7 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="选择报告" prop="belongsToReportId">
-            <el-select v-model="form.belongsToReportId" placeholder="请选择">
+            <el-select v-model="form.belongsToReportId" placeholder="请选择" @change="upDateReportId">
               <el-option
                 v-for="item in reportList"
                 :key="item.belongsToTask"
@@ -118,7 +118,8 @@
           belongsToTaskId: '',
           belongsToReportId: '',
           level: -1,
-          comments: ''
+          comments: '',
+          reportId: -1
         },
         reportList: [],
         taskList: []
@@ -129,6 +130,9 @@
       this.fetchList()
     },
     methods: {
+      upDateReportId(id) {
+        this.form.reportId = this.reportList.find(o => o.belongsToTask === id).id
+      },
       updateReportList(value) {
         getReport({ taskId: value }).then(response => {
           this.reportList = response.data

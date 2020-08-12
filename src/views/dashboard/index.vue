@@ -1,9 +1,9 @@
 <template>
   <div class="dashboard-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData"/>
-    <el-row style="background-color: #fff;padding: 16px 16px 0;margin-bottom: 32px">
-      <line-chart :chart-data="lineChartData" :legend-name="legendName"/>
-    </el-row>
+<!--    <el-row style="background-color: #fff;padding: 16px 16px 0;margin-bottom: 32px">-->
+<!--      <line-chart :chart-data="lineChartData" :legend-name="legendName"/>-->
+<!--    </el-row>-->
     <el-row :gutter="8">
       <el-col :xs="{span:24}" :sm="{span:24}" :md="{span:24}" :lg="{span:12}" :xl="{span:12}"
               style="padding-right:8px;margin-bottom:30px;">

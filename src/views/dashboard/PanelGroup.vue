@@ -9,7 +9,7 @@
           <div class="card-panel-text">
             已发布任务
           </div>
-          <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val=this.postedNum :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -22,7 +22,7 @@
           <div class="card-panel-text">
             已接收任务
           </div>
-          <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val=this.receivedNum :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -35,7 +35,7 @@
           <div class="card-panel-text">
             荣誉
           </div>
-          <count-to :start-val="0" :end-val="70" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val=this.reputation :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -46,9 +46,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            奖励
+            余额
           </div>
-          <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val=this.balance :duration="2600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -57,13 +57,40 @@
 
 <script>
   import CountTo from 'vue-count-to'
+  import { getTaskList } from '../../api/table'
+  import { getBalance, getInfo } from '../../api/user'
 
   export default {
     name: 'PanelGroup',
+    data() {
+      return {
+        postedNum: -1,
+        receivedNum: -1,
+        reputation: 70,
+        balance: -1
+      }
+    },
     components: {
       CountTo
     },
+    created() {
+      this.fetchData()
+    },
     methods: {
+      fetchData: function() {
+        getTaskList({ type: 'post' }).then(response => {
+          this.postedNum = response.data.length
+        })
+        getTaskList({ type: 'received' }).then(response => {
+          this.receivedNum = response.data.length
+        })
+        getInfo().then(response => {
+          this.reputation = response.data.reputation
+        })
+        getBalance().then(response => {
+          this.balance = response.data
+        })
+      },
       handleSetLineChartData(type) {
         this.$emit('handleSetLineChartData', type)
       }

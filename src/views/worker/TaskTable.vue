@@ -56,7 +56,7 @@
         </template>
 
       </el-table-column>
-      <el-table-column label="任务状态" header-align="center" align="center" mini-width="150">
+      <el-table-column label="任务状态" header-align="center" align="center" mini-width="250">
         <template v-slot="scope">
           <el-button round :type="scope.row.status|taskStatusFilter">
             {{scope.row.status}}
@@ -90,10 +90,10 @@
           <!--                     @click="receive(scope.row)">-->
           <!--            接收<i class="el-icon-arrow-right"></i>-->
           <!--          </el-button>-->
-          <el-button size="mini" type="info"
+          <el-button  type="info"
                      :disabled="scope.row.maxWorkerNum-scope.row.currentWorkerNum<=0||isReceived(scope.row)"
                      @click="receive(scope.row)"
-                     style="width: 20%">
+                     style="width: 40%">
             {{getControlText(scope.row)}}<i class="el-icon-arrow-right"></i>
           </el-button>
         </template>
@@ -177,7 +177,7 @@
     },
     methods: {
       isReceived: function(item2) {
-        return this.aList.find(item => item.id === item2.id) === null
+        return !(this.aList.find(item => item.id === item2.id) === undefined)
       },
       getControlText: function(item) {
         if (this.isReceived(item)) {
@@ -188,13 +188,14 @@
       },
       fetchData() {
         this.listLoading = true
+        getTaskList({ type: 'received' }).then(response => {
+          this.aList = response.data
+          this.listLoading = false
+        })
         getTaskList({ isall: true }).then(response => {
           this.list = response.data
         })
-        getTaskList({ type: 'received' }).then(response => {
-          this.aList = response.data
-        })
-        this.listLoading = false
+
       },
       nextPage: function() {
         this.fetchData()

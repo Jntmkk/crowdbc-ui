@@ -4,21 +4,21 @@
       <el-tag>最新发布</el-tag>
     </div>
     <el-table :data="list" style="width: 100%;padding-top: 15px;" title="最新发布">
-      <el-table-column label="序号" min-width="200" align="center">
+      <el-table-column label="序号" min-width="30" align="center">
         <template slot-scope="scope">
           {{scope.row.id}}
         </template>
       </el-table-column>
-      <el-table-column label="标题" min-width="195" align="center">
+      <el-table-column label="标题" min-width="130" align="center">
         <template slot-scope="scope">
           {{scope.row.title}}
         </template>
       </el-table-column>
       <el-table-column label="状态" min-width="100" align="center">
-        <template slot-scope="{row}" }>
-          <el-tag :type="row.status|statusFilter">
-            {{row.status}}
-          </el-tag>
+        <template v-slot="scope">
+          <el-button round :type="scope.row.status|taskStatusFilter">
+            {{scope.row.status}}
+          </el-button>
         </template>
       </el-table-column>
 
@@ -35,6 +35,16 @@
   export default {
     name: 'TransactionTable',
     filters: {
+      taskStatusFilter: function(status) {
+        const statusArray = {
+          PENDING: 'primary',
+          UNACCEPTED: 'success',
+          ACCEPTED: 'info',
+          EVALUATING: 'danger',
+          COMPLETED: 'warning'
+        }
+        return statusArray[status]
+      },
       statusFilter(status) {
         const statusMap = {
           finished: 'success',
@@ -55,12 +65,12 @@
       }
     },
     created() {
-      // this.fetchData()
+      this.fetchData()
     },
     methods: {
       fetchData() {
-        getTaskList().then(response => {
-          this.list = response.data.items.slice(0, 8)
+        getTaskList({ isall: true }).then(response => {
+          this.list = response.data.slice(0, 4)
         })
       }
     }

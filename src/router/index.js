@@ -121,17 +121,18 @@ export const constantRoutes = [
       //   meta: { title: 'Tree', icon: 'tree' }
       // }
     ]
-  }, {
-    path: '/transaction',
-    component: Layout,
-    redirect: 'index',
-    children: [{
-      name: 'Transaction',
-      path: 'index',
-      component: () => import('@/views/transaction/transaction'),
-      meta: { title: '交易', icon: 'request' },
-    }]
   },
+  // {
+  //   path: '/transaction',
+  //   component: Layout,
+  //   redirect: 'index',
+  //   children: [{
+  //     name: 'Transaction',
+  //     path: 'index',
+  //     component: () => import('@/views/transaction/transaction'),
+  //     meta: { title: '交易', icon: 'request' }
+  //   }]
+  // },
   {
     path: '/requester',
     component: Layout,
