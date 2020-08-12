@@ -17,8 +17,8 @@
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item label="选择任务" prop="belongsToTask">
-            <el-select v-model="form.belongsToTask" placeholder="请选择" @change="updateReportList">
+          <el-form-item label="选择任务" prop="belongsToTaskId">
+            <el-select v-model="form.belongsToTaskId" placeholder="请选择" @change="updateReportList">
               <el-option
                 v-for="item in taskList"
                 :key="item.id"
@@ -31,25 +31,25 @@
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item label="选择报告" prop="belongToReport">
-            <el-select v-model="form.belongToReport" placeholder="请选择">
+          <el-form-item label="选择报告" prop="belongsToReportId">
+            <el-select v-model="form.belongsToReportId" placeholder="请选择">
               <el-option
                 v-for="item in reportList"
-                :key="item.id"
-                :label="item.title"
-                :value="item.id"
+                :key="item.belongsToTask"
+                :label="item.solution"
+                :value="item.belongsToTask"
               />
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item v-if="form.category==='appeal'" label="申诉理由" prop="appealDesc">
-        <el-input v-model="form.appealDesc" type="textarea" placeholder="请输入您的申诉理由"/>
+        <el-input v-model="form.comments" type="textarea" placeholder="请输入您的申诉理由"/>
       </el-form-item>
       <template v-if="form.category==='access'">
         <el-form-item label="评分">
           <el-rate
-            v-model="form.score"
+            v-model="form.level"
             :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
             :max="10"
             style="margin-top:8px;"
@@ -105,19 +105,19 @@
           score: ''
         },
         rules: {
-          belongsToTask: [{ required: true, message: '请输入任务名称' }],
-          belongToReport: [{ required: true, message: '请选择要评估的任务' }],
-          level: [{ required: true, message: '请输入理由' }],
-          type: [{ required: true, message: '请输入评价' }],
+          belongsToTask: [{ required: true, message: '请选择评估任务' }],
+          belongToReport: [{ required: true, message: '请选择要评估的报告' }],
+          level: [{ required: true, message: '请输入评价' }],
+          type: [{ required: true, message: '请输入理由' }],
           comments: [{ required: true, message: '该项不能为空' }]
 
         },
         value: '',
         form: {
-          belongsToTask: '',
-          belongToReport: '',
-          level: '',
-          // category: '',
+          category: null,
+          belongsToTaskId: '',
+          belongsToReportId: '',
+          level: -1,
           comments: ''
         },
         reportList: [],
@@ -156,7 +156,7 @@
       fetchList: function() {
         getTaskList({ type: 'post' }).then(response => {
           this.taskList = response.data.filter(item => {
-            if (item.status === 'ACCEPTED') {
+            if (item.currentWorkerNum > 0) {
               return true
             } else {
               return false

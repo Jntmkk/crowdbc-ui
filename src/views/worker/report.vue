@@ -11,12 +11,13 @@
             :value="item.id"></el-option>
         </el-select>
       </el-col>
-      <template v-if="value.taskType===0">
+
+      <template v-if="getTaskType(value)===0">
         <el-col span="7">
           <el-tag>
             <label>类别:</label>
           </el-tag>
-          <el-tag type="primary">{{getItem(value).taskType|taskTypeFilter}}</el-tag>
+          <el-tag type="primary">{{getTaskType(value)|taskTypeFilter}}</el-tag>
         </el-col>
         <!--        <el-col :span="8">-->
         <!--          <el-tag>-->
@@ -26,6 +27,11 @@
         <!--        </el-col>-->
       </template>
     </el-row>
+    <el-form v-model="form">
+      <el-form-item label="任务名称" prop="title" style="color: #20a0ff">
+        <el-input v-model="form.solution" class="half-container"></el-input>
+      </el-form-item>
+    </el-form>
     <el-card style="margin: 5px 0px">
       <div slot="header">
         <el-tag>提交报告</el-tag>
@@ -69,7 +75,10 @@
         value: '',
         fileList: [],
         title: '',
-        workList: []
+        workList: [],
+        form: {
+          solution: ''
+        }
       }
     }, filters: {
 
@@ -107,9 +116,21 @@
       }
     },
     methods: {
-
+      getTaskType: function(taskId) {
+        let item = this.getItem(taskId)
+        if (item === undefined) {
+          return 'none'
+        } else {
+          return item.taskType
+        }
+      },
       sendReportInfo: function() {
-        sendReportInfo({ belongsToTask: this.value, solution: '', pointer: '', level: -1 }).then(response => {
+        sendReportInfo({
+          belongsToTask: this.value,
+          solution: this.form.solution,
+          pointer: '',
+          level: -1
+        }).then(response => {
           Message({
             message: '提交成功',
             type: 'info',

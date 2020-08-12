@@ -218,7 +218,7 @@
         return row.numLimit - row.selectedNum > 0
       },
       receive: function(row) {
-        acceptTask({ taskId: row.id, deposit: '30000000' }).then(response => {
+        acceptTask({ taskId: row.id, deposit: 300000 }).then(response => {
           this.$message({
             showClose: true,
             message: response.msg,
