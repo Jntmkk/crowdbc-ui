@@ -10,14 +10,14 @@ export function sendCommand(data) {
 
 export function getTransaction() {
   return request({
-    url: 'transaction',
+    url: '/api/transaction',
     method: 'get'
   })
 }
 
 export function getBalance() {
   return request({
-    url: 'balance',
+    url: '/api/balance',
     method: 'get'
   })
 }

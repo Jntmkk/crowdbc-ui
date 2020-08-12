@@ -154,8 +154,14 @@
         })
       },
       fetchList: function() {
-        getTaskList().then(response => {
-          this.taskList = response.data
+        getTaskList({ type: 'post' }).then(response => {
+          this.taskList = response.data.filter(item => {
+            if (item.status === 'ACCEPTED') {
+              return true
+            } else {
+              return false
+            }
+          })
         })
       }
     }
