@@ -41,7 +41,6 @@
         drag
         :data="{belongsToTask:this.value,username:this.$store.state.user.name}"
         :before-upload="checkId"
-<!--        :on-success="sendReportInfo"-->
         action="/api/file_upload"
         style="text-align: center">
         <i class="el-icon-upload"></i>
