@@ -51,9 +51,7 @@ module.exports = {
         pathRewrite: {
           '^/static': ''
         }
-
       }
-
     },
     before: app => {
     }

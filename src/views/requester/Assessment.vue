@@ -9,7 +9,7 @@
         <el-col :span="8">
           <el-form-item label="任务操作" prop="category">
             <el-select v-model="form.category" placeholder="请选择操作">
-              <el-option label="申诉" value="appeal"/>
+              <!--              <el-option label="申诉" value="appeal"/>-->
               <el-option label="评价" value="access"/>
             </el-select>
           </el-form-item>
@@ -54,6 +54,7 @@
             :max="10"
             style="margin-top:8px;"
           />
+          <span>奖励金额=（奖金/工作者总数）*（评分/10）</span>
         </el-form-item>
         <el-form-item label="评价" prop="accessDesc">
           <el-input v-model="form.accessDesc" type="textarea" placeholder="请输入您的评价"/>
@@ -115,11 +116,11 @@
         value: '',
         form: {
           category: null,
-          belongsToTaskId: -1,
-          belongsToReportId: -1,
-          level: -1,
+          belongsToTaskId: null,
+          belongsToReportId: null,
+          level: null,
           comments: '',
-          reportId: -1
+          reportId: null
         },
         reportList: [],
         taskList: []
