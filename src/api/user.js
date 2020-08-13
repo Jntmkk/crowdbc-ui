@@ -46,6 +46,14 @@ export function sendReportInfo(data) {
   })
 }
 
+export function downloadFile(path) {
+  return new request({
+    url: path,
+    method: 'get',
+    responseType: 'blob'
+  })
+}
+
 export function getReport(params) {
   return request({
     url: '/api/task/report',

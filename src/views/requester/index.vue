@@ -9,8 +9,8 @@
         <el-col :span=6>
           <el-form-item label="任务类别" prop="taskType">
             <el-select v-model="form.taskType" placeholder="请选择任务类别" @changne="change">
-              <el-option label="物联网测试" value="0"></el-option>
-              <el-option label="物联网设备邮寄" value="1"></el-option>
+              <el-option label="物联网测试" :value="0"></el-option>
+              <el-option label="物联网设备邮寄" :value="1"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -18,18 +18,18 @@
           <el-col span=6>
             <el-form-item label="平台">
               <el-select v-model="form.platform">
-                <el-option label="OneNet"></el-option>
+                <el-option label="OneNet" value="OneNet"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span=6>
-            <el-form-item label="设备ID" prop="interface">
-              <el-input v-model="form.interface"></el-input>
+            <el-form-item label="设备ID" prop="deviceId">
+              <el-input v-model="form.deviceId"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span=6>
-            <el-form-item label="Token" prop="interface">
-              <el-input v-model="form.interface"></el-input>
+            <el-form-item label="Token" prop="deviceToken">
+              <el-input v-model="form.deviceToken"></el-input>
             </el-form-item>
           </el-col>
         </template>
@@ -235,7 +235,10 @@
           status: 'UNACCEPTED',
           pointer: '',
           description: '',
-          currentWorkerNum: 0
+          currentWorkerNum: 0,
+          deviceId: '',
+          deviceToken: '',
+          platform: ''
         }
       }
     },

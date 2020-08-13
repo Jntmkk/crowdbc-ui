@@ -37,15 +37,26 @@ module.exports = {
     hotOnly: false,
     proxy: { // 配置跨域
       '/api': {
-        target: 'http://localhost:8080/api/',
+        target: 'http://localhost:8080/api',
         ws: true,
         changeOrigin: true,    //是否开启代理
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/static': {
+        target: 'http://localhost:8080/static',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/static': ''
+        }
+
       }
+
     },
-    before: app => {}
+    before: app => {
+    }
   },
   // devServer: {
   //   port: port,

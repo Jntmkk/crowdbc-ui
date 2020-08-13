@@ -113,6 +113,12 @@ export const constantRoutes = [
         name: 'report',
         component: () => import('@/views/worker/report'),
         meta: { title: '提交报告', icon: 'table' }
+      },
+      {
+        name: 'reportTable',
+        path: 'index',
+        component: () => import('@/views/worker/reportTable'),
+        meta: { title: '报告', icon: 'request' }
       }
       // {
       //   path: 'tree',
@@ -129,7 +135,7 @@ export const constantRoutes = [
   //   children: [{
   //     name: 'Transaction',
   //     path: 'index',
-  //     component: () => import('@/views/transaction/transaction'),
+  //     component: () => import('@/views/transaction/reportTable'),
   //     meta: { title: '交易', icon: 'request' }
   //   }]
   // },
@@ -157,7 +163,14 @@ export const constantRoutes = [
         name: 'assessment',
         component: () => import('@/views/requester/Assessment'),
         meta: { title: '评估', icon: 'tree' }
+      },
+      {
+        name: 'reportTable',
+        path: 'index',
+        component: () => import('@/views/requester/reportTable'),
+        meta: { title: '报告', icon: 'request' }
       }
+
     ]
   }, {
     path: '/setting',
