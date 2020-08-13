@@ -20,7 +20,7 @@
           {{scope.row.solution}}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="To">
+      <el-table-column align="center" label="Pointer">
         <template v-slot="scope">
           {{scope.row.pointer}}
         </template>
