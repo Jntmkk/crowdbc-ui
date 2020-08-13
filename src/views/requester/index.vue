@@ -6,19 +6,34 @@
         <el-input v-model="form.title" class="half-container"></el-input>
       </el-form-item>
       <el-row>
-        <el-col :span="4">
+        <el-col :span=6>
           <el-form-item label="任务类别" prop="taskType">
-            <el-select v-model="form.taskType" placeholder="请选择任务类别">
+            <el-select v-model="form.taskType" placeholder="请选择任务类别" @changne="console.info(form.taskType)">
               <el-option label="物联网测试" value="0"></el-option>
               <el-option label="物联网设备邮寄" value="1"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8" v-if="form.category==='iotTest'" offset="1">
-          <el-form-item label="接口" prop="interface">
-            <el-input v-model="form.interface"></el-input>
-          </el-form-item>
-        </el-col>
+        <template v-if="form.taskType===0">
+          <el-col span=6>
+            <el-form-item label="平台">
+              <el-select v-model="form.platform">
+                <el-option label="OneNet"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span=6>
+            <el-form-item label="设备ID" prop="interface">
+              <el-input v-model="form.interface"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span=6>
+            <el-form-item label="Token" prop="interface">
+              <el-input v-model="form.interface"></el-input>
+            </el-form-item>
+          </el-col>
+        </template>
+
       </el-row>
 
       <el-form-item label="截止日期" prop="deadline">
