@@ -8,7 +8,7 @@
       <el-row>
         <el-col :span=6>
           <el-form-item label="任务类别" prop="taskType">
-            <el-select v-model="form.taskType" placeholder="请选择任务类别" @changne="console.info(form.taskType)">
+            <el-select v-model="form.taskType" placeholder="请选择任务类别" @changne="change">
               <el-option label="物联网测试" value="0"></el-option>
               <el-option label="物联网设备邮寄" value="1"></el-option>
             </el-select>
@@ -240,6 +240,9 @@
       }
     },
     methods: {
+      change(value) {
+        console.info(value)
+      },
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {

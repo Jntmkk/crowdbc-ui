@@ -142,14 +142,14 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.dialog.dialogVisible = true
-            // submitEvaluation(this.form).then(response => {
-            //   Message({
-            //     message: response.msg,
-            //     type: 'info',
-            //     duration: 3 * 1000
-            //
-            //   })
-            // })
+            submitEvaluation(this.form).then(response => {
+              Message({
+                message: response.msg,
+                type: 'info',
+                duration: 3 * 1000
+
+              })
+            })
             this.dialog.dialogVisible = false
           } else {
 
