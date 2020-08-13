@@ -39,7 +39,7 @@
       <el-upload
         class="upload-demo"
         drag
-        :data="{belongsToTask:this.value,username:this.$store.state.user.name}"
+        :data="{belongsToTask:this.value,username:this.$store.state.user.name,solution:this.form.solution}"
         :before-upload="checkId"
         action="/api/file_upload"
         style="text-align: center">

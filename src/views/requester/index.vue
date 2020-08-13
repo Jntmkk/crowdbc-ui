@@ -75,24 +75,24 @@
       <!--        </div>-->
       <!--      </el-form-item>-->
       <el-row type="flex" class="row-bg">
-        <el-col span="12">
+        <el-col span=12>
           <el-form-item label="押金" prop="deposit" class="half-container">
             <el-input v-model.number="form.deposit"/>
           </el-form-item>
         </el-col>
-        <el-col span="12">
+        <el-col span=12>
           <el-form-item label="接收数量" prop="maxWorkerNum" class="half-container">
             <el-input v-model.number="form.maxWorkerNum"/>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col span="12">
+        <el-col span=12>
           <el-form-item label="奖励" prop="reward" class="half-container">
             <el-input v-model.number="form.reward"/>
           </el-form-item>
         </el-col>
-        <el-col span="12">
+        <el-col span=12>
           <el-form-item label="最低信誉" prop="minReputation" class="half-container">
             <el-input v-model.number="form.minReputation"/>
           </el-form-item>
