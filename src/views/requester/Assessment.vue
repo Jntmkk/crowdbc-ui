@@ -32,12 +32,12 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="选择报告" prop="belongsToReportId">
-            <el-select v-model="form.belongsToReportId" placeholder="请选择" @change="upDateReportId">
+            <el-select v-model="form.reportId" placeholder="请选择">
               <el-option
                 v-for="item in reportList"
                 :key="item.belongsToTask"
                 :label="item.solution"
-                :value="item.belongsToTask"
+                :value="item.id"
               />
             </el-select>
           </el-form-item>
@@ -115,8 +115,8 @@
         value: '',
         form: {
           category: null,
-          belongsToTaskId: '',
-          belongsToReportId: '',
+          belongsToTaskId: -1,
+          belongsToReportId: -1,
           level: -1,
           comments: '',
           reportId: -1
