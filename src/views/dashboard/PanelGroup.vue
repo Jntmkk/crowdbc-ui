@@ -88,7 +88,7 @@
           this.reputation = response.data.reputation
         })
         getBalance().then(response => {
-          this.balance = response.data / 1000000000000
+          this.balance = response.data / Math.pow(10, 18)
         })
       },
       handleSetLineChartData(type) {
