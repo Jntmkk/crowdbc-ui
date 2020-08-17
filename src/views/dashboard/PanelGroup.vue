@@ -48,7 +48,7 @@
           <div class="card-panel-text">
             余额
           </div>
-          <count-to :start-val="0" :end-val=this.balance :duration="2600" :decimals=8 class="card-panel-num"/>
+          <count-to :start-val="0" :end-val=this.balance :duration="2600" :decimals=6 class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -64,10 +64,10 @@
     name: 'PanelGroup',
     data() {
       return {
-        postedNum: -1,
-        receivedNum: -1,
+        postedNum: 0,
+        receivedNum: 0,
         reputation: 70,
-        balance: -1
+        balance: 0
       }
     },
     components: {
@@ -88,7 +88,7 @@
           this.reputation = response.data.reputation
         })
         getBalance().then(response => {
-          this.balance = response.data / Math.pow(10, 18)
+          this.balance = response.data / Math.pow(10, 22)
         })
       },
       handleSetLineChartData(type) {
