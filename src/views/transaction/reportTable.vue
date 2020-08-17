@@ -36,6 +36,12 @@
           <!--          <a href="scope.pointer">下载</a>-->
         </template>
       </el-table-column>
+      <el-table-column v-if="!isRequester">
+        <template v-slot="scope">
+          <el-button round @click="appeal(scope.row)">申诉</el-button>
+          <!--          <a href="scope.pointer">下载</a>-->
+        </template>
+      </el-table-column>
       <!--      <el-table-column align="center" label="TxnFee">-->
       <!--        <template v-slot="scope">-->
       <!--          {{parseInt(scope.row.txnFee)}}-->
@@ -58,6 +64,16 @@
       <!--      </el-table-column>-->
 
     </el-table>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>智能硬件评估中...</span>
+      <span slot="footer" class="dialog-footer">
+<!--    <el-button @click="dialogVisible = false">取 消</el-button>-->
+        <!--    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -70,6 +86,7 @@
     name: 'Rep',
     data() {
       return {
+        dialogVisible: false,
         reportList: [],
         listLoading: true,
         balance: -1,
@@ -82,6 +99,10 @@
       }
     },
     methods: {
+      appeal: function(row) {
+        this.dialogVisible = true
+        setTimeout(() => this.dialogVisible = false, 1000 * 2)
+      },
       download: function(row) {
         downloadFile(row.pointer).then(data => {
           if (!data) {
@@ -106,9 +127,9 @@
       },
       fetchData: function() {
         getTaskList({ isall: true }).then(response => {
-          response.data.every(o => {
+          response.data.map(o => {
+            console.info(JSON.stringify(o))
             getReport({ taskId: o.id }).then(response2 => {
-              console.info(JSON.stringify(response2.data))
               this.reportList.push.apply(this.reportList, response2.data)
             })
           })

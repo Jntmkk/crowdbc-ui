@@ -30,64 +30,63 @@
           </el-tag>
           <el-tag type="primary">{{value.deviceId}}</el-tag>
         </el-col>
-
       </template>
     </el-row>
 
     <div class="main-container" style="margin: 30px 0px">
       <div v-if="value.taskType===0">
-<!--        <el-card>-->
-<!--          <div slot="header" class="clearfix">-->
-<!--            <el-tag>-->
-<!--              <span>配置参数</span>-->
-<!--            </el-tag>-->
-<!--          </div>-->
-<!--          <el-form :model="form" label-width="80px">-->
+        <!--        <el-card>-->
+        <!--          <div slot="header" class="clearfix">-->
+        <!--            <el-tag>-->
+        <!--              <span>配置参数</span>-->
+        <!--            </el-tag>-->
+        <!--          </div>-->
+        <!--          <el-form :model="form" label-width="80px">-->
 
-<!--            <el-row>-->
-<!--              <el-col :span="4">-->
-<!--                <el-form-item label="请求方式">-->
-<!--                  <el-select v-model="form.requestType">-->
-<!--                    <el-option label="GET" value="get"></el-option>-->
-<!--                    <el-option label="POST" value="post"></el-option>-->
-<!--                  </el-select>-->
-<!--                </el-form-item>-->
-<!--              </el-col>-->
-<!--              <el-col :span="4">-->
-<!--                <el-form-item label="接入平台">-->
-<!--                  <el-select v-model="form.iotPlatform">-->
-<!--                    <el-option label="中国移动OneNet" value="onenet"></el-option>-->
-<!--                  </el-select>-->
-<!--                </el-form-item>-->
-<!--              </el-col>-->
-<!--              <el-col :span="4">-->
-<!--                <el-form-item label="设备类型">-->
-<!--                  <el-select v-model="form.deviceType">-->
-<!--                    <el-option label="LED" value="led"></el-option>-->
-<!--                    <el-option label="其它" value="other"></el-option>-->
-<!--                  </el-select>-->
-<!--                </el-form-item>-->
-<!--              </el-col>-->
-<!--              <template v-if="form.deviceType=='other'">-->
-<!--                <el-col :span="4">-->
-<!--                  <el-form-item label="请求参数">-->
-<!--                    <el-input type="text" v-model="form.params" placeholder="例如:page=2;total=10"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="4">-->
-<!--                  <el-form-item label="控制字段">-->
-<!--                    <el-input type="text" v-model="form.ledKey"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="4">-->
-<!--                  <el-form-item label="生效值">-->
-<!--                    <el-input type="text" v-model="form.ledValue"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </template>-->
-<!--            </el-row>-->
-<!--          </el-form>-->
-<!--        </el-card>-->
+        <!--            <el-row>-->
+        <!--              <el-col :span="4">-->
+        <!--                <el-form-item label="请求方式">-->
+        <!--                  <el-select v-model="form.requestType">-->
+        <!--                    <el-option label="GET" value="get"></el-option>-->
+        <!--                    <el-option label="POST" value="post"></el-option>-->
+        <!--                  </el-select>-->
+        <!--                </el-form-item>-->
+        <!--              </el-col>-->
+        <!--              <el-col :span="4">-->
+        <!--                <el-form-item label="接入平台">-->
+        <!--                  <el-select v-model="form.iotPlatform">-->
+        <!--                    <el-option label="中国移动OneNet" value="onenet"></el-option>-->
+        <!--                  </el-select>-->
+        <!--                </el-form-item>-->
+        <!--              </el-col>-->
+        <!--              <el-col :span="4">-->
+        <!--                <el-form-item label="设备类型">-->
+        <!--                  <el-select v-model="form.deviceType">-->
+        <!--                    <el-option label="LED" value="led"></el-option>-->
+        <!--                    <el-option label="其它" value="other"></el-option>-->
+        <!--                  </el-select>-->
+        <!--                </el-form-item>-->
+        <!--              </el-col>-->
+        <!--              <template v-if="form.deviceType=='other'">-->
+        <!--                <el-col :span="4">-->
+        <!--                  <el-form-item label="请求参数">-->
+        <!--                    <el-input type="text" v-model="form.params" placeholder="例如:page=2;total=10"></el-input>-->
+        <!--                  </el-form-item>-->
+        <!--                </el-col>-->
+        <!--                <el-col :span="4">-->
+        <!--                  <el-form-item label="控制字段">-->
+        <!--                    <el-input type="text" v-model="form.ledKey"></el-input>-->
+        <!--                  </el-form-item>-->
+        <!--                </el-col>-->
+        <!--                <el-col :span="4">-->
+        <!--                  <el-form-item label="生效值">-->
+        <!--                    <el-input type="text" v-model="form.ledValue"></el-input>-->
+        <!--                  </el-form-item>-->
+        <!--                </el-col>-->
+        <!--              </template>-->
+        <!--            </el-row>-->
+        <!--          </el-form>-->
+        <!--        </el-card>-->
         <el-row style="margin: 5px 0px">
           <el-card>
             <div slot="header">
@@ -114,7 +113,19 @@
         </el-row>
       </div>
     </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>处理中...</span>
+      <span slot="footer" class="dialog-footer">
+<!--    <el-button @click="dialogVisible = false">取 消</el-button>-->
+<!--    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
+  </span>
+    </el-dialog>
   </div>
+
 </template>
 
 <script>
@@ -125,6 +136,7 @@
     name: 'WorkingPage',
     data() {
       return {
+        dialogVisible: false,
         fileList: [],
         form: {
           requestType: '',
@@ -184,13 +196,16 @@
     methods: {
 
       send_command: function() {
+        this.dialogVisible = true
         sendCommand({
           deviceId: '601093847',
           cmd: this.form.cmd,
           apiKey: '4ooXCWYrQGFybSMhCs3xDiZeW8I='
         }).then(response => {
           console.log(JSON.stringify(response))
-          this.form.log = JSON.stringify(response)
+          this.form.log = this.form.log + JSON.stringify(response)
+          setTimeout(() => this.dialogVisible = false, 1000 * 1.5)
+          // this.dialogVisible = false
         })
       },
       fetchList: function() {

@@ -9,8 +9,8 @@
         <el-col :span="8">
           <el-form-item label="任务操作" prop="category">
             <el-select v-model="form.category" placeholder="请选择操作">
-              <!--              <el-option label="申诉" value="appeal"/>-->
               <el-option label="评价" value="access"/>
+<!--              <el-option label="申诉" value="appeal"/>-->
             </el-select>
           </el-form-item>
         </el-col>

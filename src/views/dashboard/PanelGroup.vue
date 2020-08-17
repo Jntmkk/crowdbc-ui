@@ -48,7 +48,7 @@
           <div class="card-panel-text">
             余额
           </div>
-          <count-to :start-val="0" :end-val=this.balance :duration="2600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val=this.balance :duration="2600" :decimals=8 class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -88,7 +88,7 @@
           this.reputation = response.data.reputation
         })
         getBalance().then(response => {
-          this.balance = response.data
+          this.balance = response.data / 1000000000000
         })
       },
       handleSetLineChartData(type) {
