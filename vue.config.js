@@ -27,51 +27,51 @@ module.exports = {
   /**
    * pack
    */
-  publicPath: '../../',
+  // publicPath: '../../',
   /**
    * dev
    */
-  // publicPath: '/',
+  publicPath: '/',
   outputDir: 'dist',
   assetsDir: './',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  // devServer: {
+  //   open: false,    //是否自动打开浏览器
+  //   host: 'localhost',
+  //   port: 8081,    //启动端口号
+  //   https: false,    //是否开启https
+  //   hotOnly: false,
+  //   proxy: { // 配置跨域
+  //     '/api': {
+  //       target: 'http://localhost:8080/api',
+  //       ws: true,
+  //       changeOrigin: true,    //是否开启代理
+  //       pathRewrite: {
+  //         '^/api': ''
+  //       }
+  //     },
+  //     '/static': {
+  //       target: 'http://localhost:8080/static',
+  //       ws: true,
+  //       changeOrigin: true,
+  //       pathRewrite: {
+  //         '^/static': ''
+  //       }
+  //     }
+  //   },
+  //   before: app => {
+  //   }
+  // },
   devServer: {
     open: false,    //是否自动打开浏览器
-    host: 'localhost',
-    port: 8081,    //启动端口号
-    https: false,    //是否开启https
-    hotOnly: false,
-    proxy: { // 配置跨域
-      '/api': {
-        target: 'http://localhost:8080/api',
-        ws: true,
-        changeOrigin: true,    //是否开启代理
-        pathRewrite: {
-          '^/api': ''
-        }
-      },
-      '/static': {
-        target: 'http://localhost:8080/static',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/static': ''
-        }
-      }
+    port: port,
+    overlay: {
+      warnings: false,
+      errors: true
     },
-    before: app => {
-    }
+    before: require('./mock/mock-server.js')
   },
-  // devServer: {
-  //   port: port,
-  //   open: true,
-  //   overlay: {
-  //     warnings: false,
-  //     errors: true
-  //   },
-  //   before: require('./mock/mock-server.js')
-  // },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.

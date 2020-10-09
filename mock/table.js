@@ -13,20 +13,22 @@ const data = Mock.mock({
 })
 const task = Mock.mock({
   'items|30': [{
-    'id': '@id',
-    'title': '@sentence(10, 20)',
-    'deposit': '@integer(0,100)',
-    'reward': '@integer(10,100)',
-    'repLimit': '@integer(70,200)',
-    'numLimit': '3',
-    'taskStatus': '@integer(0,4)',
-    'category': '物联网测试',
-    'createdTime': '@datetime',
-    'postedTime': '@datetime',
-    'confirmedTime': '@datetime',
-    'receivedTime': ['@datetime', '@datetime'],
-    'reports': [],
-    'deadline': '@datetime'
+    createDate: 1597385828,
+    currentWorkerNum: 1,
+    deadline: 1598630400000,
+    deposit: '@integer(100)',
+    description: '@sentence(5,10)',
+    deviceId: '@integer(10,99)',
+    deviceToken: '@sentence(5,10)',
+    id: '@id',
+    maxWorkerNum: '@integer(10,99)',
+    minReputation: '@integer(10,99)',
+    platform: 'OneNet',
+    pointer: '@sentence(5,10)',
+    reward: '@integer(100000,99000000000)',
+    status: 'UNACCEPTED',
+    taskType: 0,
+    title: '@sentence(5,10)'
   }
 
   ]
@@ -34,22 +36,22 @@ const task = Mock.mock({
 const taskData = Mock.mock({
   'items|30': [
     {
-      id: '@id',
-      title: '@sentence(6)',
-      'category|1': ['提交报告', '物联网测试'],
-      reward: '@integer(1,15)',
-      deposit: '@integer(1,15)',
-      repLimit: '@integer(1,10)',
-      selectedNum: '@integer(1,10)',
-      numLimit: '@integer(1,10)',
-      createdTime: '@datetime',
-      confirmTime: '@datetime',
-      deadline: '@datetime',
-      rPublicKey: '@sentence(10)',
-      rAddress: '@sentence(15)',
-      'status|1': ['delivery', 'accepted', 'finished', 'canceled'],
-      alreadyReceived: '@boolean',
-      'interface': '@url'
+      createDate: 1597385828,
+      currentWorkerNum: 1,
+      deadline: 1598630400000,
+      deposit: 555,
+      description: 'des',
+      deviceId: '123',
+      deviceToken: '456',
+      id: 0,
+      maxWorkerNum: 3,
+      minReputation: 60,
+      platform: 'OneNet',
+      pointer: 'n1',
+      reward: 66666666666666660000,
+      status: 'UNACCEPTED',
+      taskType: 0,
+      title: 'test1'
     }
   ]
 })
@@ -61,7 +63,7 @@ export default [
     response: config => {
       const items = data.items
       return {
-        code: 200,
+        code: '200',
         data: {
           total: items.length,
           items: items
@@ -73,7 +75,7 @@ export default [
     type: 'post',
     response: config => {
       return {
-        code: 200,
+        code: '200',
         msg: 'success',
         data: null
       }
@@ -139,13 +141,11 @@ export default [
       // ]
       const { action } = config.body
       return {
-        code: 200,
+        code: '200',
 
         message: 'success-kk',
-        data: {
-          total: task.length,
-          items: task.items
-        }
+        data: task.items
+
       }
 
     }

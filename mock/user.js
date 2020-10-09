@@ -29,6 +29,17 @@ const users = {
 
 export default [
   {
+    url: '/api/balance',
+    type: 'get',
+    response: config => {
+      return {
+        code: '200',
+        msg: '',
+        data: 2000000000000000000000000
+      }
+    }
+  },
+  {
     url: '/api/auth/signup',
     type: 'post',
     response: config => {
@@ -42,7 +53,7 @@ export default [
   },
   // user login
   {
-    url: '/vue-admin-template/user/login',
+    url: 'api/auth/signin',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -57,12 +68,17 @@ export default [
 
       return {
         code: '200',
-        data: token
+        data: {
+          id: 0,
+          token: token['token'],
+          username
+        },
+        msg: ''
       }
     }
   },
   {
-    url: '/vue-admin-template/user/register',
+    url: '/api/user/register',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -82,30 +98,29 @@ export default [
 
   // get user info
   {
-    url: '/vue-admin-template/user/info\.*',
+    url: '/api/user/info\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
-
+      const { Authorization } = config.query
+      const info = users[Authorization]
       // mock error
-      if (!info) {
-        return {
-          code: 50008,
-          message: 'Login failed, unable to get user details.'
-        }
-      }
+      // if (!info) {
+      //   return {
+      //     code: 50008,
+      //     message: 'Login failed, unable to get user details.'
+      //   }
+      // }
 
       return {
         code: '200',
-        data: info
+        data: users['admin-token']
       }
     }
   },
 
   // user logout
   {
-    url: '/vue-admin-template/user/logout',
+    url: '/api/user/logout',
     type: 'post',
     response: _ => {
       return {
