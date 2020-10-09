@@ -61,6 +61,19 @@ export const constantRoutes = [
       props: true
     }]
   },
+  // {
+  //   path: '/aa',
+  //   component: Layout,
+  //   props: true,
+  //   // redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     // component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'CrowdIoT', icon: 'dashboard' },
+  //     props: true
+  //   }]
+  // },
 
   // {
   //   path: '/example',

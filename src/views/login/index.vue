@@ -4,7 +4,7 @@
              label-position="left">
 
       <div class="title-container">
-        <h3 class="title">物联网系统测试</h3>
+        <h3 class="title">CrowdIoT：基于区块链的物联网众包测试系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -261,7 +261,7 @@
 
     .login-form {
       position: relative;
-      width: 520px;
+      width: 620px;
       max-width: 100%;
       padding: 160px 35px 0;
       margin: 0 auto;
