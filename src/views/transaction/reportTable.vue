@@ -1,74 +1,80 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="reportList"
-              element-loading-text="Loading"
-              border
-              fit
-              highlight-current-row>
-      <el-table-column align="center" label="序号">
-        <template v-slot="scope">
-          {{scope.row.id}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="BelongsToTask">
-        <template v-slot="scope">
-          {{scope.row.belongsToTask}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="Solution">
-        <template v-slot="scope">
-          {{scope.row.solution}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="Pointer">
-        <template v-slot="scope">
-          {{scope.row.pointer}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="Level">
-        <template v-slot="scope">
-          {{scope.row.level}}
-        </template>
-      </el-table-column>
-      <el-table-column v-if="isRequester">
-        <template v-slot="scope">
-          <el-button round @click="download(scope.row)">下载报告</el-button>
-          <!--          <a href="scope.pointer">下载</a>-->
-        </template>
-      </el-table-column>
-      <el-table-column v-if="!isRequester">
-        <template v-slot="scope">
-          <el-button round @click="appeal(scope.row)">申诉</el-button>
-          <!--          <a href="scope.pointer">下载</a>-->
-        </template>
-      </el-table-column>
-      <!--      <el-table-column align="center" label="TxnFee">-->
-      <!--        <template v-slot="scope">-->
-      <!--          {{parseInt(scope.row.txnFee)}}-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column align="center" label="GasPrice">-->
-      <!--        <template v-slot="scope">-->
-      <!--          {{parseInt(scope.row.gasPrice)}}-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column align="center" label="GasLimit">-->
-      <!--        <template v-slot="scope">-->
-      <!--          {{parseInt(scope.row.gasLimit)}}-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column align="center" label="TimeStamp">-->
-      <!--        <template v-slot="scope">-->
-      <!--          {{parseInt(scope.row.timestamp)}}-->
-      <!--        </template>-->
-      <!--      </el-table-column>-->
+    <el-card style="margin: 50px 100px">
+      <div slot="header" class="clearfix">
+        <h2 style="margin-left: 30px">报告</h2>
+        <el-table v-loading="listLoading" :data="reportList"
+                  element-loading-text="Loading"
+                  border
+                  fit
+                  highlight-current-row>
+          <el-table-column align="center" label="序号" width="95">
+            <template v-slot="scope">
+              {{scope.row.id}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="BelongsToTask" width="300">
+            <template v-slot="scope">
+              {{scope.row.belongsToTask}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="Solution" width="300">
+            <template v-slot="scope">
+              {{scope.row.solution}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="Pointer" width="300">
+            <template v-slot="scope">
+              {{scope.row.pointer}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="Level" width="300">
+            <template v-slot="scope">
+              {{scope.row.level}}
+            </template>
+          </el-table-column>
+          <el-table-column v-if="isRequester" width="150" align="center" label="操作">
+            <template v-slot="scope">
+              <el-button round @click="download(scope.row)">下载报告</el-button>
+              <!--                    <a href="scope.pointer">下载</a>-->
+            </template>
+          </el-table-column>
+          <el-table-column v-if="!isRequester" width="150" align="center" label="操作">
+            <template v-slot="scope">
+              <el-button round @click="appeal(scope.row)">申诉</el-button>
+              <!--          <a href="scope.pointer">下载</a>-->
+            </template>
+          </el-table-column>
+          <!--      <el-table-column align="center" label="TxnFee">-->
+          <!--        <template v-slot="scope">-->
+          <!--          {{parseInt(scope.row.txnFee)}}-->
+          <!--        </template>-->
+          <!--      </el-table-column>-->
+          <!--      <el-table-column align="center" label="GasPrice">-->
+          <!--        <template v-slot="scope">-->
+          <!--          {{parseInt(scope.row.gasPrice)}}-->
+          <!--        </template>-->
+          <!--      </el-table-column>-->
+          <!--      <el-table-column align="center" label="GasLimit">-->
+          <!--        <template v-slot="scope">-->
+          <!--          {{parseInt(scope.row.gasLimit)}}-->
+          <!--        </template>-->
+          <!--      </el-table-column>-->
+          <!--      <el-table-column align="center" label="TimeStamp">-->
+          <!--        <template v-slot="scope">-->
+          <!--          {{parseInt(scope.row.timestamp)}}-->
+          <!--        </template>-->
+          <!--      </el-table-column>-->
 
-    </el-table>
+        </el-table>
+      </div>
+    </el-card>
+
     <el-dialog
       title="提示"
       :visible.sync="dialogVisible"
       width="30%">
-      <span>智能硬件评估中，请等待自动评估结果...</span>
+      <span style="margin-left: 150px">智能硬件评估中，请等待自动评估结果...</span>
       <span slot="footer" class="dialog-footer">
 <!--    <el-button @click="dialogVisible = false">取 消</el-button>-->
         <!--    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
@@ -143,6 +149,22 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.app-container {
+//margin: 0;
+  padding: 0;
+}
+.el-table{
+  margin: 60px 152px;
+  width: auto;
+}
+.el-footer {
+  margin-top: 100px;
+  background-color: #2f2c2c;
+  padding: 28px 0;
+.cr {
+  text-align: center;
+  color: white;
+}
+}
 </style>

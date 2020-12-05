@@ -3,13 +3,16 @@
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
-    margin-left: $sideBarWidth;
+    margin-left: 0;
     position: relative;
+    .has-logo{
+      height: 56px;
+    }
   }
 
   .sidebar-container {
     transition: width 0.28s;
-    width: $sideBarWidth !important;
+    width: 0 !important;
     background-color: $menuBg;
     height: 100%;
     position: fixed;
