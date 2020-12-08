@@ -54,7 +54,7 @@
         <!--        </template>-->
 
         <!--      </el-table-column>-->
-        <el-table-column label="截止时间" header-align="center" align="center" width="390">
+        <el-table-column label="截止时间" header-align="center" align="center" width="260s">
           <template v-slot="scope">
             {{ scope.row.deadline|timeFilter }}
           </template>
@@ -103,7 +103,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <el-row style="c" :gutter="1">
+    <el-row style="" :gutter="1">
       <el-col :span="2" :offset="16">
         <el-button type="primary" round :disabled="tableControl.isFirst" @click="lastPage">上一页</el-button>
       </el-col>

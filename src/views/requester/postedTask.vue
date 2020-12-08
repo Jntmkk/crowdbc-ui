@@ -54,7 +54,7 @@
         <!--              </template>-->
 
         <!--            </el-table-column>-->
-        <el-table-column label="截止时间" header-align="center" align="center" width="390">
+        <el-table-column label="截止时间" header-align="center" align="center" width="260">
           <template v-slot="scope">
             {{ scope.row.deadline|timeFilter }}
           </template>

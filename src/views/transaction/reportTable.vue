@@ -13,22 +13,22 @@
               {{scope.row.id}}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="BelongsToTask" width="300">
+          <el-table-column align="center" label="任务ID" >
             <template v-slot="scope">
               {{scope.row.belongsToTask}}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="Solution" width="300">
+          <el-table-column align="center" label="名称" width="300">
             <template v-slot="scope">
               {{scope.row.solution}}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="Pointer" width="300">
+          <el-table-column align="center" label="附件" width="300">
             <template v-slot="scope">
               {{scope.row.pointer}}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="Level" width="300">
+          <el-table-column align="center" label="评估" width="300">
             <template v-slot="scope">
               {{scope.row.level}}
             </template>
