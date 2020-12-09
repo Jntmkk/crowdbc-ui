@@ -116,9 +116,9 @@
         </el-input>
       </el-col>
     </el-row>
-    <el-footer>
-      <div class="cr">Copyright © 2020 CrowdIoT All Rights Reserved.</div>
-    </el-footer>
+<!--    <el-footer>-->
+<!--      <div class="cr">Copyright © 2020 CrowdIoT All Rights Reserved.</div>-->
+<!--    </el-footer>-->
   </div>
 </template>
 
@@ -245,14 +245,14 @@ export default {
     margin: 60px 67px;
     width: auto;
   }
-  .el-footer {
-    margin-top: 100px;
-    background-color: #2f2c2c;
-    padding: 28px 0;
-    .cr {
-      text-align: center;
-      color: white;
-    }
-  }
+  //.el-footer {
+  //  margin-top: 100px;
+  //  background-color: #2f2c2c;
+  //  padding: 28px 0;
+  //  .cr {
+  //    text-align: center;
+  //    color: white;
+  //  }
+  //}
 }
 </style>
